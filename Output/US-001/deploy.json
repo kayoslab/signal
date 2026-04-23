@@ -1,0 +1,1 @@
+{"decision":"pass","gates_checked":["install","typecheck","build","tests"],"failures":[],"notes":"All quality gates pass: npm install (0 vulnerabilities), typecheck (0 errors), build (dist/ created with 3 assets in 15ms), tests (38/38 passed across 4 test files)."}

@@ -16,3 +16,5 @@
 
 ## US-005: Create theme tokens and base styles
 
+## US-009: Normalize all collected signals into one snapshot
+

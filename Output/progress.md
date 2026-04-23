@@ -12,3 +12,5 @@
 
 ## US-004: Create responsive application shell
 
+## US-021: Create permissions adapter
+

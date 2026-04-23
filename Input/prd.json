@@ -93,7 +93,8 @@
         "US-004"
       ],
       "notes": "Use white, graphite, muted green palette.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-2"
     },
     {
       "id": "US-006",
@@ -398,13 +399,12 @@
         "No uncaught runtime errors on unsupported browsers"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-002"
       ],
       "notes": "Adapter layer only.",
-      "status": "in_progress",
-      "claimed_by": "worker-3"
+      "status": "pass"
     },
     {
       "id": "US-022",

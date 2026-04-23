@@ -88,13 +88,12 @@
         "Shared button style exists"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-004"
       ],
       "notes": "Use white, graphite, muted green palette.",
-      "status": "in_progress",
-      "claimed_by": "worker-2"
+      "status": "pass"
     },
     {
       "id": "US-006",
@@ -422,7 +421,8 @@
         "US-021"
       ],
       "notes": "0 to 100 scale.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-3"
     },
     {
       "id": "US-023",

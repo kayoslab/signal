@@ -1,0 +1,1 @@
+{"decision":"pass","gates_checked":["lint","typecheck","tests"],"failures":[],"notes":"All gates green: lint clean, typecheck clean, 111 tests passed across 7 test files (including 16 US-008 rendering-signals tests)."}

@@ -1,0 +1,1 @@
+{"approved":true,"concerns":["Step 4 does not mention updating the rerun callback in fingerprint-receipt.ts (lines 19-29). The rerun handler only calls formatSnapshotToRows(), so the three new posture rows will be lost when the user clicks Re-run Audit. The plan must also recompute entropy and privacy posture in the rerun path and append those rows."]}

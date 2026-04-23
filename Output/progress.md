@@ -4,3 +4,5 @@
 
 ## US-002: Add lint, typecheck and unit test scripts
 
+## US-006: Collect locale and platform browser signals
+

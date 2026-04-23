@@ -18,3 +18,5 @@
 
 ## US-009: Normalize all collected signals into one snapshot
 
+## US-022: Calculate Permission Debt score
+

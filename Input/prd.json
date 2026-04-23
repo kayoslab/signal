@@ -416,13 +416,12 @@
         "Unit tests cover scoring scenarios"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-021"
       ],
       "notes": "0 to 100 scale.",
-      "status": "in_progress",
-      "claimed_by": "worker-3"
+      "status": "pass"
     },
     {
       "id": "US-023",
@@ -599,7 +598,8 @@
         "US-005"
       ],
       "notes": "Credibility requirement.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-1"
     },
     {
       "id": "US-032",

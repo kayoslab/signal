@@ -6,3 +6,5 @@
 
 ## US-006: Collect locale and platform browser signals
 
+## US-007: Collect device capability browser signals
+

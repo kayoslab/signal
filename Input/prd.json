@@ -128,13 +128,12 @@
         "Unsupported values return safe fallback strings"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-002"
       ],
       "notes": "Return typed object.",
-      "status": "in_progress",
-      "claimed_by": "worker-3"
+      "status": "pass"
     },
     {
       "id": "US-008",
@@ -152,7 +151,8 @@
         "US-002"
       ],
       "notes": "Renderer collection must be optional.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-2"
     },
     {
       "id": "US-009",

@@ -1,0 +1,1 @@
+{"decision":"pass","gates_checked":["tests","typecheck","lint"],"failures":[],"notes":"All gates pass. typecheck: clean. lint: clean. tests: 473 passed across 25 test files (including 27 US-024 inference-schema tests)."}

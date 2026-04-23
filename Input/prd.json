@@ -361,13 +361,12 @@
         "Card shows why it matters"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-005"
       ],
       "notes": "Reusable by multiple modules.",
-      "status": "in_progress",
-      "claimed_by": "worker-2"
+      "status": "pass"
     },
     {
       "id": "US-020",
@@ -463,7 +462,8 @@
         "US-009"
       ],
       "notes": "Content safety structure.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-1"
     },
     {
       "id": "US-025",

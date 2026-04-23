@@ -36,3 +36,5 @@
 
 ## US-023: Render Permission Debt module
 
+## US-019: Create Zero Click OSINT card component
+

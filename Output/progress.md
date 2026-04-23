@@ -8,3 +8,5 @@
 
 ## US-007: Collect device capability browser signals
 
+## US-008: Collect rendering engine browser signals
+

@@ -74,7 +74,8 @@
         "US-002"
       ],
       "notes": "Large widths may use >=1200px breakpoint.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-2"
     },
     {
       "id": "US-005",
@@ -145,12 +146,12 @@
         "No uncaught runtime errors if WebGL unavailable"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-002"
       ],
       "notes": "Renderer collection must be optional.",
-      "status": "available"
+      "status": "pass"
     },
     {
       "id": "US-009",
@@ -402,7 +403,8 @@
         "US-002"
       ],
       "notes": "Adapter layer only.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-3"
     },
     {
       "id": "US-022",
@@ -612,11 +614,14 @@
       "priority": 2,
       "passes": false,
       "depends_on": [
+        "US-016",
+        "US-017",
         "US-020",
         "US-023",
         "US-026",
         "US-028",
-        "US-030"
+        "US-030",
+        "US-031"
       ],
       "notes": "Validate across major modules.",
       "status": "available"

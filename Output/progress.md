@@ -44,3 +44,5 @@
 
 ## US-015: Display privacy posture and uniqueness estimate on receipt
 
+## US-025: Implement conservative shadow profile rules
+

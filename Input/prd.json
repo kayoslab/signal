@@ -307,7 +307,8 @@
         "US-015"
       ],
       "notes": "Use Clipboard API when available.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-3"
     },
     {
       "id": "US-017",
@@ -474,13 +475,12 @@
         "Unit tests cover example rules"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-024"
       ],
       "notes": "Examples: desktop daytime usage pattern.",
-      "status": "in_progress",
-      "claimed_by": "worker-1"
+      "status": "pass"
     },
     {
       "id": "US-026",

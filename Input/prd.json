@@ -192,7 +192,8 @@
         "US-009"
       ],
       "notes": "Use concise motion.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-3"
     },
     {
       "id": "US-011",
@@ -205,13 +206,12 @@
         "Receipt supports variable number of rows"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-005"
       ],
       "notes": "Presentation only.",
-      "status": "in_progress",
-      "claimed_by": "worker-2"
+      "status": "pass"
     },
     {
       "id": "US-012",

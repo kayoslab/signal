@@ -38,3 +38,5 @@
 
 ## US-019: Create Zero Click OSINT card component
 
+## US-024: Create shadow profile inference schema
+

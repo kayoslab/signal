@@ -385,7 +385,8 @@
         "US-019"
       ],
       "notes": "No unsupported claims.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-2"
     },
     {
       "id": "US-021",
@@ -457,13 +458,12 @@
         "Inference includes explicit inference marker"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-009"
       ],
       "notes": "Content safety structure.",
-      "status": "in_progress",
-      "claimed_by": "worker-1"
+      "status": "pass"
     },
     {
       "id": "US-025",

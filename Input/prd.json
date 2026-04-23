@@ -74,8 +74,7 @@
         "US-002"
       ],
       "notes": "Large widths may use >=1200px breakpoint.",
-      "status": "in_progress",
-      "claimed_by": "worker-1"
+      "status": "available"
     },
     {
       "id": "US-005",
@@ -151,8 +150,7 @@
         "US-002"
       ],
       "notes": "Renderer collection must be optional.",
-      "status": "in_progress",
-      "claimed_by": "worker-2"
+      "status": "available"
     },
     {
       "id": "US-009",
@@ -251,7 +249,7 @@
         "US-009",
         "US-011"
       ],
-      "notes": "Do not fail if blocked.",
+      "notes": "Do not available if blocked.",
       "status": "available"
     },
     {
@@ -299,7 +297,7 @@
         "Copy button visible",
         "Receipt text copied to clipboard on supported browsers",
         "Success feedback shown",
-        "Failure feedback shown when unavailable"
+        "availableure feedback shown when unavailable"
       ],
       "priority": 2,
       "passes": false,
@@ -338,7 +336,7 @@
         "Share Image button visible",
         "Receipt card exported as PNG or equivalent image",
         "Downloaded image is readable",
-        "Failure state handled gracefully"
+        "availableure state handled gracefully"
       ],
       "priority": 3,
       "passes": false,

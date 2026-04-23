@@ -47,3 +47,26 @@
   font-weight: var(--font-weight-medium);
   text-align: right;
 }
+
+.receipt-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+.receipt-rerun-btn--loading {
+  opacity: 0.7;
+  animation: receipt-pulse 1s ease-in-out infinite;
+}
+
+@keyframes receipt-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .receipt-rerun-btn--loading {
+    animation: none;
+  }
+}

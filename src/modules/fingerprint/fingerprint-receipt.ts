@@ -1,13 +1,26 @@
 import { collectSnapshot } from '../../signals/snapshot';
+import { calculateEntropyScore } from '../../scoring/entropy-score';
+import { computePrivacyPosture } from '../../scoring/privacy-posture';
 import { createReceipt, createReceiptRow } from '../../ui/receipt';
+import type { ReceiptRow } from '../../ui/receipt';
 import { createRerunButton } from '../../ui/rerun-button';
 import { formatSnapshotToRows } from './format-snapshot';
 
 const MIN_LOADING_MS = 300;
 
+function buildPostureRows(snapshot: ReturnType<typeof collectSnapshot>): ReceiptRow[] {
+  const entropy = calculateEntropyScore(snapshot);
+  const posture = computePrivacyPosture(entropy);
+  return [
+    { label: 'Entropy Level', value: posture.entropyLabel },
+    { label: 'Uniqueness Estimate', value: `${posture.uniquenessEstimate} [Heuristic]` },
+    { label: 'Privacy Posture', value: posture.privacyPosture },
+  ];
+}
+
 export function renderFingerprintReceipt(): HTMLElement {
   const snapshot = collectSnapshot();
-  const rows = formatSnapshotToRows(snapshot);
+  const rows = [...formatSnapshotToRows(snapshot), ...buildPostureRows(snapshot)];
   const receipt = createReceipt('Fingerprint Receipt', rows);
 
   const rowsContainer = receipt.querySelector('.receipt-rows')!;
@@ -21,7 +34,7 @@ export function renderFingerprintReceipt(): HTMLElement {
       Promise.resolve(collectSnapshot()),
       new Promise<void>((r) => setTimeout(r, MIN_LOADING_MS)),
     ]);
-    const freshRows = formatSnapshotToRows(freshSnapshot);
+    const freshRows = [...formatSnapshotToRows(freshSnapshot), ...buildPostureRows(freshSnapshot)];
 
     rowsContainer.innerHTML = '';
     for (const row of freshRows) {

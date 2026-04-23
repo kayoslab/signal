@@ -141,8 +141,8 @@ describe('US-017: fingerprint receipt rerun integration', () => {
       (r) => r.querySelector('.receipt-row-value')!.textContent,
     );
 
-    // Row count should remain 12
-    expect(rowsAfter.length).toBe(12);
+    // Row count should remain 15 (12 snapshot + 3 posture)
+    expect(rowsAfter.length).toBe(15);
 
     // At least some values should differ (languages changed, DNT changed, etc.)
     const changed = valuesAfter.some((v, i) => v !== valuesBefore[i]);
@@ -170,7 +170,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     expect(btn.classList.contains('receipt-rerun-btn--loading')).toBe(false);
   });
 
-  it('receipt rows count stays at 12 after rerun', async () => {
+  it('receipt rows count stays at 15 after rerun', async () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
@@ -182,7 +182,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     await advanceTimersAndFlush(500);
 
     const rows = receipt.querySelectorAll('.receipt-row');
-    expect(rows.length).toBe(12);
+    expect(rows.length).toBe(15);
   });
 });
 

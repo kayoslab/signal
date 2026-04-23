@@ -1,7 +1,8 @@
 import '../styles/global.css';
+import { renderShell } from '../layout/shell';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 
 if (app) {
-  app.textContent = 'Signal Intelligence — workspace initialized.';
+  renderShell(app);
 }

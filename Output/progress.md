@@ -42,3 +42,5 @@
 
 ## US-020: Render Zero Click OSINT findings
 
+## US-015: Display privacy posture and uniqueness estimate on receipt
+

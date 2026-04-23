@@ -281,14 +281,13 @@
         "Privacy posture line displayed"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-011",
         "US-014"
       ],
       "notes": "Human-readable copy only.",
-      "status": "in_progress",
-      "claimed_by": "worker-3"
+      "status": "pass"
     },
     {
       "id": "US-016",
@@ -641,7 +640,8 @@
         "US-010"
       ],
       "notes": "Use prefers-reduced-motion.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-2"
     },
     {
       "id": "US-034",

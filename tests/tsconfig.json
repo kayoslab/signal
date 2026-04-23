@@ -3,7 +3,8 @@
   "compilerOptions": {
     "types": ["node", "vitest/globals"],
     "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
+    "rootDir": ".."
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../src/**/*.ts"]
 }

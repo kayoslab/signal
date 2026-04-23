@@ -42,9 +42,7 @@ export async function renderIntro(root: HTMLElement): Promise<void> {
     count.classList.add('intro-line--visible');
     privacy.classList.add('intro-line--visible');
 
-    await delay(800);
-    overlay.classList.add('intro-overlay--fade-out');
-    await delay(100);
+    await delay(50);
   } else {
     // Staggered reveal: 3 lines at ~400ms intervals, then fade out
     await delay(100);

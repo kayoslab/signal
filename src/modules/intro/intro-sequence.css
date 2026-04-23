@@ -52,11 +52,12 @@
 
 @media (prefers-reduced-motion: reduce) {
   .intro-line {
+    opacity: 1;
     transform: none;
-    transition: opacity 100ms ease-out;
+    transition: none;
   }
 
   .intro-overlay {
-    transition: opacity 100ms ease-out;
+    transition: none;
   }
 }

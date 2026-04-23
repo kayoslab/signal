@@ -37,3 +37,9 @@
   color: var(--color-accent);
   border-color: var(--color-accent);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}

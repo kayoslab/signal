@@ -46,3 +46,5 @@
 
 ## US-025: Implement conservative shadow profile rules
 
+## US-033: Add reduced motion behavior
+

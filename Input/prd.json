@@ -244,14 +244,13 @@
         "Unavailable values display fallback copy"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-009",
         "US-011"
       ],
       "notes": "Do not available if blocked.",
-      "status": "in_progress",
-      "claimed_by": "worker-1"
+      "status": "pass"
     },
     {
       "id": "US-014",
@@ -367,7 +366,8 @@
         "US-005"
       ],
       "notes": "Reusable by multiple modules.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-3"
     },
     {
       "id": "US-020",

@@ -38,6 +38,18 @@ export function createOsintCard(data: OsintCardData): HTMLElement {
   return card;
 }
 
+export function createOsintSection(heading: string, cards: OsintCardData[]): HTMLElement {
+  const section = document.createElement('section');
+  section.className = 'zero-click-osint';
+
+  const h2 = document.createElement('h2');
+  h2.textContent = heading;
+  section.appendChild(h2);
+  section.appendChild(createOsintCardList(cards));
+
+  return section;
+}
+
 export function createOsintCardList(cards: OsintCardData[]): HTMLElement {
   const container = document.createElement('div');
   container.className = 'osint-card-list';

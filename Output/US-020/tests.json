@@ -1,0 +1,1 @@
+{"test_results":"pass","failures":[],"tests_added":["tests/us-020/infer-browser-family.test.ts","tests/us-020/infer-device-class.test.ts","tests/us-020/infer-region.test.ts","tests/us-020/map-snapshot-to-findings.test.ts","tests/us-020/zero-click-osint-module.test.ts"],"tests_modified":[]}

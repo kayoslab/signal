@@ -26,3 +26,5 @@
 
 ## US-012: Populate receipt with core fingerprint fields
 
+## US-010: Create animated intro sequence
+

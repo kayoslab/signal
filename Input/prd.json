@@ -185,15 +185,14 @@
         "Reduced motion users receive minimal animation"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-004",
         "US-005",
         "US-009"
       ],
       "notes": "Use concise motion.",
-      "status": "in_progress",
-      "claimed_by": "worker-3"
+      "status": "pass"
     },
     {
       "id": "US-011",
@@ -270,7 +269,8 @@
         "US-009"
       ],
       "notes": "Heuristic only. Not scientific measurement.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-2"
     },
     {
       "id": "US-015",

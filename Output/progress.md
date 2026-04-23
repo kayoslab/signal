@@ -40,3 +40,5 @@
 
 ## US-024: Create shadow profile inference schema
 
+## US-020: Render Zero Click OSINT findings
+

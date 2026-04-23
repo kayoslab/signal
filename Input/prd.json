@@ -379,14 +379,13 @@
         "All cards use confidence labels"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-009",
         "US-019"
       ],
       "notes": "No unsupported claims.",
-      "status": "in_progress",
-      "claimed_by": "worker-2"
+      "status": "pass"
     },
     {
       "id": "US-021",
@@ -481,7 +480,8 @@
         "US-024"
       ],
       "notes": "Examples: desktop daytime usage pattern.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-1"
     },
     {
       "id": "US-026",

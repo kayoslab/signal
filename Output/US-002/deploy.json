@@ -1,0 +1,1 @@
+{"decision":"pass","gates_checked":["lint","typecheck","tests"],"failures":[],"notes":"All quality gates pass: lint (eslint src/) exits 0, typecheck (tsc --noEmit) exits 0, tests (vitest run) 1 test file / 1 test passed."}

@@ -252,7 +252,7 @@ describe('US-009: collectSnapshot', () => {
       const snapshot = collectSnapshot();
 
       expect(() => {
-        (snapshot as Record<string, unknown>).version = 999;
+        (snapshot as unknown as Record<string, unknown>).version = 999;
       }).toThrow();
     });
   });

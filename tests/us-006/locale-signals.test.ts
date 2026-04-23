@@ -270,7 +270,7 @@ describe('US-006: Collect locale and platform browser signals', () => {
         configurable: true,
       });
       const result = collectLocaleSignals();
-      expect(result.doNotTrack).toBe('unspecified');
+      expect(result.doNotTrack).toBe('unknown');
     });
 
     it('returns "unspecified" when doNotTrack is not available anywhere', () => {
@@ -281,7 +281,7 @@ describe('US-006: Collect locale and platform browser signals', () => {
       });
       delete (globalThis as unknown as Record<string, unknown>).doNotTrack;
       const result = collectLocaleSignals();
-      expect(result.doNotTrack).toBe('unspecified');
+      expect(result.doNotTrack).toBe('unknown');
     });
 
     it('returns "unspecified" when navigator is undefined and globalThis.doNotTrack is undefined', () => {
@@ -292,7 +292,7 @@ describe('US-006: Collect locale and platform browser signals', () => {
       });
       delete (globalThis as unknown as Record<string, unknown>).doNotTrack;
       const result = collectLocaleSignals();
-      expect(result.doNotTrack).toBe('unspecified');
+      expect(result.doNotTrack).toBe('unknown');
     });
   });
 
@@ -314,7 +314,7 @@ describe('US-006: Collect locale and platform browser signals', () => {
       expect(result.timezone).toBe('unknown');
       expect(result.languages).toEqual(['unknown']);
       expect(result.platform).toBe('unknown');
-      expect(result.doNotTrack).toBe('unspecified');
+      expect(result.doNotTrack).toBe('unknown');
     });
   });
 

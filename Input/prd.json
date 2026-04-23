@@ -269,7 +269,7 @@
       ],
       "notes": "Heuristic only. Not scientific measurement.",
       "status": "in_progress",
-      "claimed_by": "worker-2"
+      "claimed_by": "worker-3"
     },
     {
       "id": "US-015",
@@ -321,13 +321,13 @@
         "Loading state shown during rerun"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-012",
         "US-013"
       ],
       "notes": "No page reload required.",
-      "status": "available"
+      "status": "pass"
     },
     {
       "id": "US-018",
@@ -367,7 +367,7 @@
       ],
       "notes": "Reusable by multiple modules.",
       "status": "in_progress",
-      "claimed_by": "worker-3"
+      "claimed_by": "worker-2"
     },
     {
       "id": "US-020",

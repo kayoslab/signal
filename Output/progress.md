@@ -30,3 +30,5 @@
 
 ## US-013: Populate receipt with advanced fingerprint fields
 
+## US-017: Add receipt rerun action
+

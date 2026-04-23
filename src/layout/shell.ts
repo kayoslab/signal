@@ -18,7 +18,23 @@ export function renderShell(root: HTMLElement): void {
 
   const footer = document.createElement('footer');
   footer.className = 'shell-footer';
-  footer.textContent = 'All analysis runs locally. No data leaves your browser.';
+
+  const trustStatements = [
+    'No cookies',
+    'No analytics',
+    'No backend profiling',
+    'All analysis runs locally',
+  ];
+
+  const list = document.createElement('ul');
+  list.className = 'trust-statements';
+  for (const statement of trustStatements) {
+    const item = document.createElement('li');
+    item.setAttribute('data-trust', '');
+    item.textContent = statement;
+    list.appendChild(item);
+  }
+  footer.appendChild(list);
 
   shell.appendChild(header);
   shell.appendChild(main);

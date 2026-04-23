@@ -263,13 +263,12 @@
         "Unit tests cover common scenarios"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-009"
       ],
       "notes": "Heuristic only. Not scientific measurement.",
-      "status": "in_progress",
-      "claimed_by": "worker-3"
+      "status": "pass"
     },
     {
       "id": "US-015",
@@ -445,7 +444,8 @@
         "US-022"
       ],
       "notes": "Only show supported states where possible.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-1"
     },
     {
       "id": "US-024",

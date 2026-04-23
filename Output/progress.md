@@ -32,3 +32,5 @@
 
 ## US-017: Add receipt rerun action
 
+## US-014: Implement entropy heuristic scoring
+

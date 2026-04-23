@@ -53,9 +53,9 @@ export function collectLocaleSignals(): LocaleSignals {
         .navigator?.doNotTrack ??
       (globalThis as unknown as { doNotTrack?: string | null }).doNotTrack ??
       null;
-    doNotTrack = typeof dnt === 'string' ? dnt : 'unspecified';
+    doNotTrack = typeof dnt === 'string' ? dnt : 'unknown';
   } catch {
-    doNotTrack = 'unspecified';
+    doNotTrack = 'unknown';
   }
 
   return { timezone, languages, platform, doNotTrack };

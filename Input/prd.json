@@ -12,10 +12,10 @@
         "Default page loads without console errors"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "depends_on": [],
       "notes": "Foundation ticket. Use npm.",
-      "status": "available"
+      "status": "pass"
     },
     {
       "id": "US-002",
@@ -31,7 +31,9 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-001"],
+      "depends_on": [
+        "US-001"
+      ],
       "notes": "Required by most later tickets.",
       "status": "available"
     },
@@ -47,7 +49,9 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-001"],
+      "depends_on": [
+        "US-001"
+      ],
       "notes": "Trust requirement.",
       "status": "available"
     },
@@ -65,7 +69,10 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-001", "US-002"],
+      "depends_on": [
+        "US-001",
+        "US-002"
+      ],
       "notes": "Large widths may use >=1200px breakpoint.",
       "status": "available"
     },
@@ -82,7 +89,9 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-004"],
+      "depends_on": [
+        "US-004"
+      ],
       "notes": "Use white, graphite, muted green palette.",
       "status": "available"
     },
@@ -99,7 +108,9 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-002"],
+      "depends_on": [
+        "US-002"
+      ],
       "notes": "Return typed object.",
       "status": "available"
     },
@@ -117,7 +128,9 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-002"],
+      "depends_on": [
+        "US-002"
+      ],
       "notes": "Return typed object.",
       "status": "available"
     },
@@ -133,7 +146,9 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-002"],
+      "depends_on": [
+        "US-002"
+      ],
       "notes": "Renderer collection must be optional.",
       "status": "available"
     },
@@ -150,7 +165,11 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-006", "US-007", "US-008"],
+      "depends_on": [
+        "US-006",
+        "US-007",
+        "US-008"
+      ],
       "notes": "Use explicit unknown/unavailable values.",
       "status": "available"
     },
@@ -167,7 +186,11 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-004", "US-009"],
+      "depends_on": [
+        "US-004",
+        "US-005",
+        "US-009"
+      ],
       "notes": "Use concise motion.",
       "status": "available"
     },
@@ -183,7 +206,9 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-005"],
+      "depends_on": [
+        "US-005"
+      ],
       "notes": "Presentation only.",
       "status": "available"
     },
@@ -201,7 +226,10 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-009", "US-011"],
+      "depends_on": [
+        "US-009",
+        "US-011"
+      ],
       "notes": "Use human-readable formatting.",
       "status": "available"
     },
@@ -217,7 +245,10 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-009", "US-011"],
+      "depends_on": [
+        "US-009",
+        "US-011"
+      ],
       "notes": "Do not fail if blocked.",
       "status": "available"
     },
@@ -233,7 +264,9 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-009"],
+      "depends_on": [
+        "US-009"
+      ],
       "notes": "Heuristic only. Not scientific measurement.",
       "status": "available"
     },
@@ -249,7 +282,10 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-011", "US-014"],
+      "depends_on": [
+        "US-011",
+        "US-014"
+      ],
       "notes": "Human-readable copy only.",
       "status": "available"
     },
@@ -265,7 +301,11 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-012", "US-013", "US-015"],
+      "depends_on": [
+        "US-012",
+        "US-013",
+        "US-015"
+      ],
       "notes": "Use Clipboard API when available.",
       "status": "available"
     },
@@ -281,7 +321,10 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-012", "US-013"],
+      "depends_on": [
+        "US-012",
+        "US-013"
+      ],
       "notes": "No page reload required.",
       "status": "available"
     },
@@ -297,7 +340,11 @@
       ],
       "priority": 3,
       "passes": false,
-      "depends_on": ["US-012", "US-013", "US-015"],
+      "depends_on": [
+        "US-012",
+        "US-013",
+        "US-015"
+      ],
       "notes": "Use client-side rendering library.",
       "status": "available"
     },
@@ -314,7 +361,9 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-005"],
+      "depends_on": [
+        "US-005"
+      ],
       "notes": "Reusable by multiple modules.",
       "status": "available"
     },
@@ -330,7 +379,10 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-009", "US-019"],
+      "depends_on": [
+        "US-009",
+        "US-019"
+      ],
       "notes": "No unsupported claims.",
       "status": "available"
     },
@@ -346,7 +398,9 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-002"],
+      "depends_on": [
+        "US-002"
+      ],
       "notes": "Adapter layer only.",
       "status": "available"
     },
@@ -362,7 +416,9 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-021"],
+      "depends_on": [
+        "US-021"
+      ],
       "notes": "0 to 100 scale.",
       "status": "available"
     },
@@ -381,7 +437,11 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-005", "US-021", "US-022"],
+      "depends_on": [
+        "US-005",
+        "US-021",
+        "US-022"
+      ],
       "notes": "Only show supported states where possible.",
       "status": "available"
     },
@@ -397,7 +457,9 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-009"],
+      "depends_on": [
+        "US-009"
+      ],
       "notes": "Content safety structure.",
       "status": "available"
     },
@@ -413,7 +475,9 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-024"],
+      "depends_on": [
+        "US-024"
+      ],
       "notes": "Examples: desktop daytime usage pattern.",
       "status": "available"
     },
@@ -429,7 +493,10 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-005", "US-025"],
+      "depends_on": [
+        "US-005",
+        "US-025"
+      ],
       "notes": "No hidden assumptions.",
       "status": "available"
     },
@@ -446,7 +513,11 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-014", "US-022", "US-025"],
+      "depends_on": [
+        "US-014",
+        "US-022",
+        "US-025"
+      ],
       "notes": "Rules must be explainable.",
       "status": "available"
     },
@@ -462,7 +533,10 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-005", "US-027"],
+      "depends_on": [
+        "US-005",
+        "US-027"
+      ],
       "notes": "Use concise wording.",
       "status": "available"
     },
@@ -478,7 +552,11 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-014", "US-022", "US-027"],
+      "depends_on": [
+        "US-014",
+        "US-022",
+        "US-027"
+      ],
       "notes": "Action engine only.",
       "status": "available"
     },
@@ -494,7 +572,10 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-005", "US-029"],
+      "depends_on": [
+        "US-005",
+        "US-029"
+      ],
       "notes": "Practical not theoretical.",
       "status": "available"
     },
@@ -511,7 +592,10 @@
       ],
       "priority": 1,
       "passes": false,
-      "depends_on": ["US-004"],
+      "depends_on": [
+        "US-004",
+        "US-005"
+      ],
       "notes": "Credibility requirement.",
       "status": "available"
     },
@@ -527,7 +611,13 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-020", "US-023", "US-026", "US-028", "US-030"],
+      "depends_on": [
+        "US-020",
+        "US-023",
+        "US-026",
+        "US-028",
+        "US-030"
+      ],
       "notes": "Validate across major modules.",
       "status": "available"
     },
@@ -542,7 +632,9 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-010"],
+      "depends_on": [
+        "US-010"
+      ],
       "notes": "Use prefers-reduced-motion.",
       "status": "available"
     },
@@ -559,7 +651,15 @@
       ],
       "priority": 2,
       "passes": false,
-      "depends_on": ["US-009", "US-014", "US-022", "US-025", "US-015"],
+      "depends_on": [
+        "US-009",
+        "US-012",
+        "US-013",
+        "US-014",
+        "US-015",
+        "US-022",
+        "US-025"
+      ],
       "notes": "Use Vitest and Playwright.",
       "status": "available"
     },
@@ -575,7 +675,11 @@
       ],
       "priority": 3,
       "passes": false,
-      "depends_on": ["US-032", "US-033", "US-034"],
+      "depends_on": [
+        "US-032",
+        "US-033",
+        "US-034"
+      ],
       "notes": "Release ticket.",
       "status": "available"
     }

@@ -1,0 +1,583 @@
+{
+  "project": "signal-intelligence",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Initialize Vite + TypeScript workspace",
+      "description": "As a developer, I want a clean Vite and TypeScript project so the application can run locally and build for static hosting.",
+      "acceptanceCriteria": [
+        "npm install completes successfully",
+        "npm run dev starts local server",
+        "npm run build creates production bundle",
+        "Default page loads without console errors"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": [],
+      "notes": "Foundation ticket. Use npm.",
+      "status": "available"
+    },
+    {
+      "id": "US-002",
+      "title": "Add lint, typecheck and unit test scripts",
+      "description": "As a developer, I want baseline quality tooling so all future tickets have a consistent definition of done.",
+      "acceptanceCriteria": [
+        "npm run lint exists",
+        "npm run typecheck exists",
+        "npm run test exists",
+        "ESLint is configured",
+        "Vitest is configured",
+        "A sample unit test passes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-001"],
+      "notes": "Required by most later tickets.",
+      "status": "available"
+    },
+    {
+      "id": "US-003",
+      "title": "Create static local-only architecture policy",
+      "description": "As a developer, I want guardrails that prevent privacy-breaking dependencies from being introduced.",
+      "acceptanceCriteria": [
+        "No analytics SDK installed",
+        "No tracking scripts installed",
+        "No backend API dependency required for core flow",
+        "Project can be deployed as static hosting output"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-001"],
+      "notes": "Trust requirement.",
+      "status": "available"
+    },
+    {
+      "id": "US-004",
+      "title": "Create responsive application shell",
+      "description": "As a user, I want a structured responsive layout so the dashboard works on desktop and mobile devices.",
+      "acceptanceCriteria": [
+        "Header exists",
+        "Main content area exists",
+        "Footer exists",
+        "Desktop layout uses three columns at large widths",
+        "Mobile layout stacks modules vertically",
+        "No horizontal scrolling on common viewports"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-001", "US-002"],
+      "notes": "Large widths may use >=1200px breakpoint.",
+      "status": "available"
+    },
+    {
+      "id": "US-005",
+      "title": "Create theme tokens and base styles",
+      "description": "As a developer, I want reusable theme tokens so all modules share a consistent visual identity.",
+      "acceptanceCriteria": [
+        "Color palette defined",
+        "Typography scale defined",
+        "Spacing scale defined",
+        "Shared card style exists",
+        "Shared button style exists"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-004"],
+      "notes": "Use white, graphite, muted green palette.",
+      "status": "available"
+    },
+    {
+      "id": "US-006",
+      "title": "Collect locale and platform browser signals",
+      "description": "As a developer, I want to collect low-risk browser metadata so later modules can analyze it.",
+      "acceptanceCriteria": [
+        "Timezone collected when available",
+        "Languages collected when available",
+        "Platform collected when available",
+        "Do Not Track state collected when available",
+        "Unsupported values return safe fallback strings"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-002"],
+      "notes": "Return typed object.",
+      "status": "available"
+    },
+    {
+      "id": "US-007",
+      "title": "Collect device capability browser signals",
+      "description": "As a developer, I want to collect device capability signals for local analysis.",
+      "acceptanceCriteria": [
+        "Screen width and height collected",
+        "Device pixel ratio collected when available",
+        "hardwareConcurrency collected when available",
+        "Touch support collected",
+        "Storage support collected",
+        "Unsupported values return safe fallback strings"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-002"],
+      "notes": "Return typed object.",
+      "status": "available"
+    },
+    {
+      "id": "US-008",
+      "title": "Collect rendering engine browser signals",
+      "description": "As a developer, I want to collect rendering information when supported so uniqueness and device traits can be estimated.",
+      "acceptanceCriteria": [
+        "WebGL support detection exists",
+        "Renderer string collected when available",
+        "Graceful fallback used when blocked or unsupported",
+        "No uncaught runtime errors if WebGL unavailable"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-002"],
+      "notes": "Renderer collection must be optional.",
+      "status": "available"
+    },
+    {
+      "id": "US-009",
+      "title": "Normalize all collected signals into one snapshot",
+      "description": "As a developer, I want one normalized data structure so all modules consume the same source of truth.",
+      "acceptanceCriteria": [
+        "Locale signals merged",
+        "Capability signals merged",
+        "Rendering signals merged",
+        "Stable output schema exists",
+        "Missing values represented consistently"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-006", "US-007", "US-008"],
+      "notes": "Use explicit unknown/unavailable values.",
+      "status": "available"
+    },
+    {
+      "id": "US-010",
+      "title": "Create animated intro sequence",
+      "description": "As a user, I want an opening statement that explains the concept before the dashboard appears.",
+      "acceptanceCriteria": [
+        "Intro text appears on first load",
+        "Signal count derived from snapshot fields",
+        "Privacy statement appears",
+        "Intro completes automatically within 2 seconds",
+        "Reduced motion users receive minimal animation"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-004", "US-009"],
+      "notes": "Use concise motion.",
+      "status": "available"
+    },
+    {
+      "id": "US-011",
+      "title": "Create receipt layout component",
+      "description": "As a developer, I want a reusable receipt-style component so findings can be displayed clearly.",
+      "acceptanceCriteria": [
+        "Receipt card renders",
+        "Receipt title area renders",
+        "Receipt row component renders label/value pairs",
+        "Receipt supports variable number of rows"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-005"],
+      "notes": "Presentation only.",
+      "status": "available"
+    },
+    {
+      "id": "US-012",
+      "title": "Populate receipt with core fingerprint fields",
+      "description": "As a user, I want the receipt to show key browser signals immediately.",
+      "acceptanceCriteria": [
+        "Timezone shown",
+        "Languages shown",
+        "Platform shown",
+        "Touch support shown",
+        "CPU threads shown when available",
+        "Do Not Track shown"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-009", "US-011"],
+      "notes": "Use human-readable formatting.",
+      "status": "available"
+    },
+    {
+      "id": "US-013",
+      "title": "Populate receipt with advanced fingerprint fields",
+      "description": "As a user, I want the receipt to show additional system traits when available.",
+      "acceptanceCriteria": [
+        "Renderer shown when available",
+        "Storage capability shown",
+        "Screen profile shown",
+        "Unavailable values display fallback copy"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-009", "US-011"],
+      "notes": "Do not fail if blocked.",
+      "status": "available"
+    },
+    {
+      "id": "US-014",
+      "title": "Implement entropy heuristic scoring",
+      "description": "As a developer, I want a deterministic heuristic that estimates fingerprint uniqueness risk.",
+      "acceptanceCriteria": [
+        "Weighted score calculated from selected signals",
+        "Method documented in code comments",
+        "Same snapshot returns same score",
+        "Unit tests cover common scenarios"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-009"],
+      "notes": "Heuristic only. Not scientific measurement.",
+      "status": "available"
+    },
+    {
+      "id": "US-015",
+      "title": "Display privacy posture and uniqueness estimate on receipt",
+      "description": "As a user, I want the receipt to summarize my uniqueness risk in understandable terms.",
+      "acceptanceCriteria": [
+        "Entropy label Low/Moderate/High shown",
+        "Estimated uniqueness text shown",
+        "Estimate clearly labeled as heuristic",
+        "Privacy posture line displayed"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-011", "US-014"],
+      "notes": "Human-readable copy only.",
+      "status": "available"
+    },
+    {
+      "id": "US-016",
+      "title": "Add receipt copy action",
+      "description": "As a user, I want to copy the receipt text for sharing or documentation.",
+      "acceptanceCriteria": [
+        "Copy button visible",
+        "Receipt text copied to clipboard on supported browsers",
+        "Success feedback shown",
+        "Failure feedback shown when unavailable"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-012", "US-013", "US-015"],
+      "notes": "Use Clipboard API when available.",
+      "status": "available"
+    },
+    {
+      "id": "US-017",
+      "title": "Add receipt rerun action",
+      "description": "As a user, I want to rerun the audit so current values can refresh.",
+      "acceptanceCriteria": [
+        "Re-run button visible",
+        "Signal collection runs again",
+        "Receipt updates after rerun",
+        "Loading state shown during rerun"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-012", "US-013"],
+      "notes": "No page reload required.",
+      "status": "available"
+    },
+    {
+      "id": "US-018",
+      "title": "Add receipt image export action",
+      "description": "As a user, I want to export the receipt as an image for sharing.",
+      "acceptanceCriteria": [
+        "Share Image button visible",
+        "Receipt card exported as PNG or equivalent image",
+        "Downloaded image is readable",
+        "Failure state handled gracefully"
+      ],
+      "priority": 3,
+      "passes": false,
+      "depends_on": ["US-012", "US-013", "US-015"],
+      "notes": "Use client-side rendering library.",
+      "status": "available"
+    },
+    {
+      "id": "US-019",
+      "title": "Create Zero Click OSINT card component",
+      "description": "As a developer, I want a reusable intelligence card component for passive findings.",
+      "acceptanceCriteria": [
+        "Card shows title",
+        "Card shows value",
+        "Card shows source",
+        "Card shows confidence",
+        "Card shows why it matters"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-005"],
+      "notes": "Reusable by multiple modules.",
+      "status": "available"
+    },
+    {
+      "id": "US-020",
+      "title": "Render Zero Click OSINT findings",
+      "description": "As a user, I want to see what is knowable without interacting.",
+      "acceptanceCriteria": [
+        "Cards rendered for timezone, language, browser family, device class",
+        "Cards rendered for screen profile, rendering engine, input capability",
+        "Approximate region clearly labeled as heuristic when shown",
+        "All cards use confidence labels"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-009", "US-019"],
+      "notes": "No unsupported claims.",
+      "status": "available"
+    },
+    {
+      "id": "US-021",
+      "title": "Create permissions adapter",
+      "description": "As a developer, I want a safe permissions abstraction so browser support differences are handled consistently.",
+      "acceptanceCriteria": [
+        "Permissions API feature detection exists",
+        "Supported permissions return granted/denied/prompt",
+        "Unsupported permissions return unsupported",
+        "No uncaught runtime errors on unsupported browsers"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-002"],
+      "notes": "Adapter layer only.",
+      "status": "available"
+    },
+    {
+      "id": "US-022",
+      "title": "Calculate Permission Debt score",
+      "description": "As a developer, I want a deterministic score representing cumulative granted permissions risk.",
+      "acceptanceCriteria": [
+        "Scoring rules documented",
+        "Granted permissions increase score",
+        "Denied or unsupported permissions do not increase score incorrectly",
+        "Unit tests cover scoring scenarios"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-021"],
+      "notes": "0 to 100 scale.",
+      "status": "available"
+    },
+    {
+      "id": "US-023",
+      "title": "Render Permission Debt module",
+      "description": "As a user, I want to review current permission states and cumulative risk.",
+      "acceptanceCriteria": [
+        "Notifications shown",
+        "Camera shown",
+        "Microphone shown",
+        "Clipboard shown",
+        "Location shown",
+        "Permission Debt score shown",
+        "Explanatory text shown"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-005", "US-021", "US-022"],
+      "notes": "Only show supported states where possible.",
+      "status": "available"
+    },
+    {
+      "id": "US-024",
+      "title": "Create shadow profile inference schema",
+      "description": "As a developer, I want a strict structure for inferred statements so no claim is presented as fact.",
+      "acceptanceCriteria": [
+        "Inference includes statement",
+        "Inference includes evidence list",
+        "Inference includes confidence label",
+        "Inference includes explicit inference marker"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-009"],
+      "notes": "Content safety structure.",
+      "status": "available"
+    },
+    {
+      "id": "US-025",
+      "title": "Implement conservative shadow profile rules",
+      "description": "As a developer, I want bounded inference rules based on observable signals.",
+      "acceptanceCriteria": [
+        "At least four inference rules implemented",
+        "Each rule references observable evidence",
+        "No certainty language used",
+        "Unit tests cover example rules"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-024"],
+      "notes": "Examples: desktop daytime usage pattern.",
+      "status": "available"
+    },
+    {
+      "id": "US-026",
+      "title": "Render Shadow Profile module",
+      "description": "As a user, I want to see likely assumptions third parties could make from passive signals.",
+      "acceptanceCriteria": [
+        "Inference cards render",
+        "Every card visibly marked as inference",
+        "Evidence displayed",
+        "Confidence displayed"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-005", "US-025"],
+      "notes": "No hidden assumptions.",
+      "status": "available"
+    },
+    {
+      "id": "US-027",
+      "title": "Create threat model rules engine",
+      "description": "As a developer, I want deterministic mappings from findings to user-relevant risks.",
+      "acceptanceCriteria": [
+        "Identity exposure rule exists",
+        "Social engineering rule exists",
+        "Permission abuse rule exists",
+        "Shoulder surfing rule exists",
+        "Severity uses Low/Medium/High labels"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-014", "US-022", "US-025"],
+      "notes": "Rules must be explainable.",
+      "status": "available"
+    },
+    {
+      "id": "US-028",
+      "title": "Render Threat Model module",
+      "description": "As a user, I want my technical findings translated into realistic risks.",
+      "acceptanceCriteria": [
+        "Risk cards render",
+        "Severity badge shown",
+        "Short explanation shown",
+        "At least four risk categories shown"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-005", "US-027"],
+      "notes": "Use concise wording.",
+      "status": "available"
+    },
+    {
+      "id": "US-029",
+      "title": "Create hardening recommendation rules",
+      "description": "As a developer, I want actionable recommendations generated from findings.",
+      "acceptanceCriteria": [
+        "Rules respond to permissions findings",
+        "Rules respond to uniqueness findings",
+        "Rules respond to profile separation opportunities",
+        "At least five possible actions exist"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-014", "US-022", "US-027"],
+      "notes": "Action engine only.",
+      "status": "available"
+    },
+    {
+      "id": "US-030",
+      "title": "Render Hardening Actions module",
+      "description": "As a user, I want practical steps to improve my privacy and security posture.",
+      "acceptanceCriteria": [
+        "Actions list rendered",
+        "Actions concise and readable",
+        "Actions adapt to findings",
+        "No fear-based language used"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-005", "US-029"],
+      "notes": "Practical not theoretical.",
+      "status": "available"
+    },
+    {
+      "id": "US-031",
+      "title": "Add persistent privacy footer",
+      "description": "As a user, I want explicit trust messaging so I understand how the site handles data.",
+      "acceptanceCriteria": [
+        "Footer visible on page",
+        "States no cookies",
+        "States no analytics",
+        "States no backend profiling",
+        "States all analysis runs locally"
+      ],
+      "priority": 1,
+      "passes": false,
+      "depends_on": ["US-004"],
+      "notes": "Credibility requirement.",
+      "status": "available"
+    },
+    {
+      "id": "US-032",
+      "title": "Add accessibility support",
+      "description": "As a user, I want the site usable with keyboard navigation and accessible defaults.",
+      "acceptanceCriteria": [
+        "Keyboard navigation works",
+        "Visible focus states exist",
+        "Semantic landmarks used",
+        "Color contrast acceptable"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-020", "US-023", "US-026", "US-028", "US-030"],
+      "notes": "Validate across major modules.",
+      "status": "available"
+    },
+    {
+      "id": "US-033",
+      "title": "Add reduced motion behavior",
+      "description": "As a user, I want animations minimized when my system requests reduced motion.",
+      "acceptanceCriteria": [
+        "Intro animations reduced or removed",
+        "Transitions reduced",
+        "No content hidden when motion disabled"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-010"],
+      "notes": "Use prefers-reduced-motion.",
+      "status": "available"
+    },
+    {
+      "id": "US-034",
+      "title": "Create automated test coverage",
+      "description": "As a developer, I want automated tests for critical logic and smoke flows.",
+      "acceptanceCriteria": [
+        "Signal collector unit tests exist",
+        "Scoring tests exist",
+        "Inference tests exist",
+        "Main page smoke test exists",
+        "Receipt render smoke test exists"
+      ],
+      "priority": 2,
+      "passes": false,
+      "depends_on": ["US-009", "US-014", "US-022", "US-025", "US-015"],
+      "notes": "Use Vitest and Playwright.",
+      "status": "available"
+    },
+    {
+      "id": "US-035",
+      "title": "Validate production static build",
+      "description": "As a developer, I want a clean production build ready for deployment.",
+      "acceptanceCriteria": [
+        "npm run build passes",
+        "Production preview works",
+        "No console errors in production",
+        "All modules load from static hosting"
+      ],
+      "priority": 3,
+      "passes": false,
+      "depends_on": ["US-032", "US-033", "US-034"],
+      "notes": "Release ticket.",
+      "status": "available"
+    }
+  ]
+}

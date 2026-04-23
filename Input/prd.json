@@ -226,14 +226,13 @@
         "Do Not Track shown"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-009",
         "US-011"
       ],
       "notes": "Use human-readable formatting.",
-      "status": "in_progress",
-      "claimed_by": "worker-2"
+      "status": "pass"
     },
     {
       "id": "US-013",
@@ -252,7 +251,8 @@
         "US-011"
       ],
       "notes": "Do not available if blocked.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-1"
     },
     {
       "id": "US-014",

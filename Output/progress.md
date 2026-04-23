@@ -24,3 +24,5 @@
 
 ## US-031: Add persistent privacy footer
 
+## US-012: Populate receipt with core fingerprint fields
+

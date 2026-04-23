@@ -1,6 +1,7 @@
 @import './tokens.css';
 @import './card.css';
 @import './button.css';
+@import './receipt.css';
 
 *,
 *::before,

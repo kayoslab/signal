@@ -22,3 +22,5 @@
 
 ## US-011: Create receipt layout component
 
+## US-031: Add persistent privacy footer
+

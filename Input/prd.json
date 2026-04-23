@@ -232,7 +232,8 @@
         "US-011"
       ],
       "notes": "Use human-readable formatting.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-2"
     },
     {
       "id": "US-013",
@@ -592,14 +593,13 @@
         "States all analysis runs locally"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-004",
         "US-005"
       ],
       "notes": "Credibility requirement.",
-      "status": "in_progress",
-      "claimed_by": "worker-1"
+      "status": "pass"
     },
     {
       "id": "US-032",

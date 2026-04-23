@@ -2,6 +2,7 @@
 @import './card.css';
 @import './button.css';
 @import './receipt.css';
+@import './osint-card.css';
 
 *,
 *::before,

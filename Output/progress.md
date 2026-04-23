@@ -34,3 +34,5 @@
 
 ## US-014: Implement entropy heuristic scoring
 
+## US-023: Render Permission Debt module
+

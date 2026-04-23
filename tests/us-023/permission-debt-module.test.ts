@@ -50,10 +50,9 @@ function makeMixedPermissions(
     clipboard: 'unsupported',
     geolocation: 'granted',
   };
-  return Object.entries({ ...defaults, ...overrides }).map(([name, state]) => ({
-    name,
-    state,
-  }));
+  return Object.entries({ ...defaults, ...overrides })
+    .filter((entry): entry is [string, PermissionState] => entry[1] !== undefined)
+    .map(([name, state]) => ({ name, state }));
 }
 
 const MOCK_DEBT_RESULT: PermissionDebtResult = {
@@ -103,6 +102,7 @@ describe('US-023: renderPermissionDebtModule', () => {
   let calculatePermissionDebtScore: ReturnType<typeof vi.fn>;
 
   beforeEach(async () => {
+    vi.clearAllMocks();
     const adapter = await import('../../src/permissions/permissions-adapter');
     const scoring = await import('../../src/scoring/permission-debt-score');
     checkPermissions = adapter.checkPermissions as ReturnType<typeof vi.fn>;

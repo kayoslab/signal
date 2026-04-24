@@ -5,6 +5,7 @@ import { createReceipt, createReceiptRow } from '../../ui/receipt';
 import type { ReceiptRow } from '../../ui/receipt';
 import { createRerunButton } from '../../ui/rerun-button';
 import { createCopyButton } from '../../ui/copy-button';
+import { createShareImageButton } from '../../ui/share-image-button';
 import { formatReceiptText } from './format-receipt-text';
 import { formatSnapshotToRows } from './format-snapshot';
 
@@ -51,7 +52,10 @@ export function renderFingerprintReceipt(): HTMLElement {
     formatReceiptText('Fingerprint Receipt', currentRows),
   );
 
+  const shareBtn = createShareImageButton(() => receipt);
+
   actions.appendChild(copyBtn);
+  actions.appendChild(shareBtn);
   actions.appendChild(rerunBtn);
   receipt.appendChild(actions);
 

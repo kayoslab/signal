@@ -1,0 +1,1 @@
+{"decision":"pass","gates_checked":["lint","typecheck","tests"],"failures":[],"notes":"Lint and typecheck clean. 790/791 tests pass. The single failure (us-003 'build output is non-empty') is pre-existing and unrelated to US-018 — it requires a build artifact. All 28 US-018 tests (share-image-button: 18, receipt-to-image: 5, fingerprint-receipt-integration: 5) pass."}

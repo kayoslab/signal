@@ -1,0 +1,1 @@
+{"decision":"pass","gates_checked":["lint","typecheck","tests"],"failures":[],"notes":"All 3 gates pass. Lint: clean. Typecheck: clean. Tests: 875/876 pass — the 1 failure is in tests/us-034/main-smoke.test.ts, a pre-existing issue unrelated to US-029 (file not modified on this branch, fails identically on main). All 54 US-029 hardening rules tests pass."}

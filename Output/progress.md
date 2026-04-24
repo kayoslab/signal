@@ -66,3 +66,5 @@
 
 ## US-032: Add accessibility support
 
+## US-035: Validate production static build
+

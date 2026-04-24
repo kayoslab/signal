@@ -1,0 +1,1 @@
+{"decision":"pass","gates_checked":["lint","typecheck","tests"],"failures":[],"notes":"All quality gates pass. Lint: clean. Typecheck: clean. Tests: 851 passed across 43 test files (including US-028 threat-model-card and threat-model-module tests)."}

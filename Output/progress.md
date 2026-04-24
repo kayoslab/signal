@@ -64,3 +64,5 @@
 
 ## US-030: Render Hardening Actions module
 
+## US-032: Add accessibility support
+

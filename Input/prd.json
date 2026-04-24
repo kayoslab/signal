@@ -610,7 +610,7 @@
         "Color contrast acceptable"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-016",
         "US-017",
@@ -622,7 +622,7 @@
         "US-031"
       ],
       "notes": "Validate across major modules.",
-      "status": "available"
+      "status": "pass"
     },
     {
       "id": "US-033",

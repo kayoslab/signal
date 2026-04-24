@@ -3,6 +3,14 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+vi.mock('../../src/permissions/permissions-adapter', () => ({
+  checkPermissions: vi.fn().mockResolvedValue([]),
+}));
+
+vi.mock('../../src/scoring/permission-debt-score', () => ({
+  calculatePermissionDebtScore: vi.fn().mockReturnValue({ score: 0, maxPossible: 61, breakdown: [] }),
+}));
+
 /**
  * US-017: Add receipt rerun action
  *
@@ -75,7 +83,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     container.appendChild(receipt);
 
     const btn = receipt.querySelector('.receipt-rerun-btn');
@@ -87,7 +95,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     container.appendChild(receipt);
 
     const actions = receipt.querySelector('.receipt-actions');
@@ -99,7 +107,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     container.appendChild(receipt);
 
     const rowsContainer = receipt.querySelector('.receipt-rows');
@@ -111,7 +119,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     container.appendChild(receipt);
 
     const rowsBefore = receipt.querySelectorAll('.receipt-row');
@@ -142,7 +150,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     );
 
     // Row count should remain 15 (12 snapshot + 3 posture)
-    expect(rowsAfter.length).toBe(27);
+    expect(rowsAfter.length).toBe(32);
 
     // At least some values should differ (languages changed, DNT changed, etc.)
     const changed = valuesAfter.some((v, i) => v !== valuesBefore[i]);
@@ -153,7 +161,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     container.appendChild(receipt);
 
     const btn = receipt.querySelector('.receipt-rerun-btn') as HTMLButtonElement;
@@ -174,7 +182,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     container.appendChild(receipt);
 
     const btn = receipt.querySelector('.receipt-rerun-btn') as HTMLButtonElement;
@@ -182,7 +190,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     await advanceTimersAndFlush(500);
 
     const rows = receipt.querySelectorAll('.receipt-row');
-    expect(rows.length).toBe(27);
+    expect(rows.length).toBe(32);
   });
 });
 
@@ -207,7 +215,7 @@ describe('US-017: fingerprint receipt rerun accessibility', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     container.appendChild(receipt);
 
     const rowsContainer = receipt.querySelector('.receipt-rows');
@@ -219,7 +227,7 @@ describe('US-017: fingerprint receipt rerun accessibility', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     container.appendChild(receipt);
 
     const btn = receipt.querySelector('.receipt-rerun-btn') as HTMLButtonElement;

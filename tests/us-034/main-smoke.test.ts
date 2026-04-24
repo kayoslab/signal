@@ -12,15 +12,11 @@ vi.mock('../../src/layout/shell', () => ({
 }));
 
 vi.mock('../../src/modules/fingerprint', () => ({
-  renderFingerprintReceipt: vi.fn(),
+  renderFingerprintReceipt: vi.fn().mockResolvedValue(document.createElement('div')),
 }));
 
 vi.mock('../../src/modules/zero-click-osint', () => ({
   renderZeroClickOsintModule: vi.fn(),
-}));
-
-vi.mock('../../src/modules/permission-debt', () => ({
-  renderPermissionDebtModule: vi.fn(),
 }));
 
 vi.mock('../../src/modules/shadow-profile', () => ({
@@ -39,7 +35,6 @@ import { renderIntro } from '../../src/modules/intro/intro-sequence';
 import { renderShell } from '../../src/layout/shell';
 import { renderFingerprintReceipt } from '../../src/modules/fingerprint';
 import { renderZeroClickOsintModule } from '../../src/modules/zero-click-osint';
-import { renderPermissionDebtModule } from '../../src/modules/permission-debt';
 import { renderShadowProfileModule } from '../../src/modules/shadow-profile';
 import { renderThreatModelModule } from '../../src/modules/threat-model';
 import { renderHardeningModule } from '../../src/modules/hardening';
@@ -62,8 +57,6 @@ describe('US-034: Main page smoke test', () => {
     receiptEl.className = 'receipt';
     const zeroClickEl = document.createElement('section');
     zeroClickEl.className = 'zero-click';
-    const permDebtEl = document.createElement('section');
-    permDebtEl.className = 'perm-debt';
     const shadowProfileEl = document.createElement('section');
     shadowProfileEl.className = 'shadow-profile';
     const threatModelEl = document.createElement('section');
@@ -73,9 +66,8 @@ describe('US-034: Main page smoke test', () => {
     vi.mocked(renderShell).mockImplementation((root: HTMLElement) => {
       root.appendChild(dashboardDiv);
     });
-    vi.mocked(renderFingerprintReceipt).mockReturnValue(receiptEl);
+    vi.mocked(renderFingerprintReceipt).mockResolvedValue(receiptEl);
     vi.mocked(renderZeroClickOsintModule).mockResolvedValue(zeroClickEl);
-    vi.mocked(renderPermissionDebtModule).mockResolvedValue(permDebtEl);
     vi.mocked(renderShadowProfileModule).mockResolvedValue(shadowProfileEl);
     vi.mocked(renderThreatModelModule).mockResolvedValue(threatModelEl);
     vi.mocked(renderHardeningModule).mockResolvedValue(undefined);
@@ -90,16 +82,14 @@ describe('US-034: Main page smoke test', () => {
     expect(renderShell).toHaveBeenCalledWith(appDiv);
     expect(renderFingerprintReceipt).toHaveBeenCalled();
     expect(renderZeroClickOsintModule).toHaveBeenCalled();
-    expect(renderPermissionDebtModule).toHaveBeenCalled();
     expect(renderShadowProfileModule).toHaveBeenCalled();
     expect(renderThreatModelModule).toHaveBeenCalled();
     expect(renderHardeningModule).toHaveBeenCalled();
-    expect(dashboardDiv.children).toHaveLength(5);
-    expect(dashboardDiv.children[0]).toBe(receiptEl);
-    expect(dashboardDiv.children[1]).toBe(zeroClickEl);
-    expect(dashboardDiv.children[2]).toBe(permDebtEl);
-    expect(dashboardDiv.children[3]).toBe(shadowProfileEl);
-    expect(dashboardDiv.children[4]).toBe(threatModelEl);
+    expect(dashboardDiv.children).toHaveLength(4);
+    expect(dashboardDiv.children[0]).toBe(zeroClickEl);
+    expect(dashboardDiv.children[1]).toBe(shadowProfileEl);
+    expect(dashboardDiv.children[2]).toBe(receiptEl);
+    expect(dashboardDiv.children[3]).toBe(threatModelEl);
   });
 
   it('does not crash when #app element is missing', async () => {
@@ -132,6 +122,5 @@ describe('US-034: Main page smoke test', () => {
     });
 
     expect(renderZeroClickOsintModule).not.toHaveBeenCalled();
-    expect(renderPermissionDebtModule).not.toHaveBeenCalled();
   });
 });

@@ -1,6 +1,14 @@
 // @vitest-environment jsdom
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
+vi.mock('../../src/permissions/permissions-adapter', () => ({
+  checkPermissions: vi.fn().mockResolvedValue([]),
+}));
+
+vi.mock('../../src/scoring/permission-debt-score', () => ({
+  calculatePermissionDebtScore: vi.fn().mockReturnValue({ score: 0, maxPossible: 61, breakdown: [] }),
+}));
+
 /**
  * US-018: Fingerprint receipt integration — Share Image button
  *
@@ -56,7 +64,7 @@ describe('US-018: renderFingerprintReceipt – Share Image integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     const actions = receipt.querySelector('.receipt-actions');
     expect(actions).not.toBeNull();
   });
@@ -65,7 +73,7 @@ describe('US-018: renderFingerprintReceipt – Share Image integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     const buttons = receipt.querySelectorAll('.receipt-actions button');
     expect(buttons.length).toBe(3);
   });
@@ -74,7 +82,7 @@ describe('US-018: renderFingerprintReceipt – Share Image integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     const shareBtn = receipt.querySelector('.receipt-share-btn');
     expect(shareBtn).not.toBeNull();
     expect(shareBtn!.textContent).toBe('Share Image');
@@ -84,7 +92,7 @@ describe('US-018: renderFingerprintReceipt – Share Image integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     const buttons = receipt.querySelectorAll('.receipt-actions button');
     const labels = Array.from(buttons).map((b) => b.textContent);
     expect(labels).toEqual(['Copy', 'Share Image', 'Re-run Audit']);
@@ -94,8 +102,8 @@ describe('US-018: renderFingerprintReceipt – Share Image integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     const rows = receipt.querySelectorAll('.receipt-row');
-    expect(rows.length).toBe(27);
+    expect(rows.length).toBe(32);
   });
 });

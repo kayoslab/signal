@@ -126,7 +126,8 @@ describe('US-004: responsive application shell', () => {
       const content = mediaBlock![1];
       const hasThreeColumns =
         /repeat\(\s*3\s*,\s*1fr\s*\)/.test(content) ||
-        /1fr\s+1fr\s+1fr/.test(content);
+        /1fr\s+1fr\s+1fr/.test(content) ||
+        /1fr\s+minmax\([^)]+\)\s+1fr/.test(content);
       expect(hasThreeColumns).toBe(true);
     });
   });

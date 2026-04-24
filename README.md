@@ -1,3 +1,5 @@
+![Signal Intelligence](public/signal.png)
+
 # Signal Intelligence
 
 A browser-based self-audit that reveals what your device and browser expose before you log into any website.

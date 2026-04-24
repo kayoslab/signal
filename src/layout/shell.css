@@ -16,19 +16,26 @@
   letter-spacing: -0.01em;
 }
 
+/* ----------------------------------------------------------------
+   Dashboard grid
+   ---------------------------------------------------------------- */
+
 .dashboard {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--spacing-lg);
   padding: var(--spacing-lg);
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* Mobile: receipt first */
+/* Mobile: receipt first, everything else stacked */
 .dashboard-receipt {
   order: -1;
 }
 
+/* Tablet: 2-column, OSINT + hardening span full width */
 @media (min-width: 768px) {
   .dashboard {
     grid-template-columns: repeat(2, 1fr);
@@ -36,23 +43,44 @@
 
   .dashboard-receipt {
     order: unset;
+    grid-column: 1 / -1;
+    max-width: 480px;
+    justify-self: center;
   }
 
-  /* OSINT section spans full width on tablet since it has many cards */
   .dashboard-osint {
+    grid-column: 1 / -1;
+  }
+
+  .hardening-actions {
     grid-column: 1 / -1;
   }
 }
 
+/* Desktop: 3-column, receipt centered with flanking sections */
 @media (min-width: 1200px) {
   .dashboard {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr minmax(auto, 420px) 1fr;
+  }
+
+  .dashboard-receipt {
+    max-width: unset;
+    grid-column: 2;
+    justify-self: stretch;
   }
 
   .dashboard-osint {
     grid-column: 1 / -1;
   }
+
+  .hardening-actions {
+    grid-column: 1 / -1;
+  }
 }
+
+/* ----------------------------------------------------------------
+   Dashboard section headings
+   ---------------------------------------------------------------- */
 
 .dashboard > section > h2 {
   font-size: var(--font-size-xl);
@@ -61,6 +89,10 @@
   margin-bottom: var(--spacing-md);
   letter-spacing: var(--letter-spacing-tight);
 }
+
+/* ----------------------------------------------------------------
+   Footer
+   ---------------------------------------------------------------- */
 
 .shell-footer {
   padding: var(--spacing-md) var(--spacing-lg);

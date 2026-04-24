@@ -1,6 +1,14 @@
 // @vitest-environment jsdom
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
+vi.mock('../../src/permissions/permissions-adapter', () => ({
+  checkPermissions: vi.fn().mockResolvedValue([]),
+}));
+
+vi.mock('../../src/scoring/permission-debt-score', () => ({
+  calculatePermissionDebtScore: vi.fn().mockReturnValue({ score: 0, maxPossible: 61, breakdown: [] }),
+}));
+
 /**
  * US-013: Populate receipt with advanced fingerprint fields
  *
@@ -57,7 +65,7 @@ describe('US-013: renderFingerprintReceipt integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     expect(receipt).toBeInstanceOf(HTMLElement);
   });
 
@@ -65,7 +73,7 @@ describe('US-013: renderFingerprintReceipt integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     expect(receipt.classList.contains('receipt')).toBe(true);
   });
 
@@ -73,7 +81,7 @@ describe('US-013: renderFingerprintReceipt integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     const title = receipt.querySelector('.receipt-title');
     expect(title).not.toBeNull();
     expect(title!.textContent).toContain('Fingerprint');
@@ -83,20 +91,20 @@ describe('US-013: renderFingerprintReceipt integration', () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     const rows = receipt.querySelectorAll('.receipt-row');
     // Expected fields: Renderer, Vendor, WebGL Version, Storage,
     // Screen Resolution, Device Pixel Ratio, Touch Support, CPU Threads,
     // Timezone, Languages, Platform, Do Not Track = 12
     // + Entropy Level, Uniqueness Estimate, Privacy Posture = 15
-    expect(rows.length).toBe(27);
+    expect(rows.length).toBe(32);
   });
 
   it('receipt rows contain label and value elements', async () => {
     const { renderFingerprintReceipt } = await import(
       '../../src/modules/fingerprint/fingerprint-receipt'
     );
-    const receipt = renderFingerprintReceipt();
+    const receipt = await renderFingerprintReceipt();
     const rows = receipt.querySelectorAll('.receipt-row');
 
     for (const row of rows) {

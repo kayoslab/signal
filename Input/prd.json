@@ -492,14 +492,13 @@
         "Confidence displayed"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-005",
         "US-025"
       ],
       "notes": "No hidden assumptions.",
-      "status": "in_progress",
-      "claimed_by": "worker-1"
+      "status": "pass"
     },
     {
       "id": "US-027",
@@ -520,7 +519,8 @@
         "US-025"
       ],
       "notes": "Rules must be explainable.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-2"
     },
     {
       "id": "US-028",
@@ -665,7 +665,8 @@
         "US-025"
       ],
       "notes": "Use Vitest and Playwright.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-3"
     },
     {
       "id": "US-035",

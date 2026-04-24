@@ -50,3 +50,5 @@
 
 ## US-016: Add receipt copy action
 
+## US-026: Render Shadow Profile module
+

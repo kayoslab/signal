@@ -70,3 +70,21 @@
     animation: none;
   }
 }
+
+.receipt-copy-btn--success {
+  background-color: var(--color-accent, #2e7d32);
+  color: var(--color-surface, #fff);
+  transition: background-color 0.2s ease;
+}
+
+.receipt-copy-btn--unavailable {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .receipt-copy-btn--success,
+  .receipt-copy-btn--unavailable {
+    transition: none;
+  }
+}

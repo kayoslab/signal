@@ -677,14 +677,14 @@
         "All modules load from static hosting"
       ],
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-032",
         "US-033",
         "US-034"
       ],
       "notes": "Release ticket.",
-      "status": "available"
+      "status": "pass"
     }
   ]
 }

@@ -54,3 +54,5 @@
 
 ## US-027: Create threat model rules engine
 
+## US-034: Create automated test coverage
+

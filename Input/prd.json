@@ -539,7 +539,8 @@
         "US-027"
       ],
       "notes": "Use concise wording.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-2"
     },
     {
       "id": "US-029",
@@ -654,7 +655,7 @@
         "Receipt render smoke test exists"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-009",
         "US-012",
@@ -665,8 +666,7 @@
         "US-025"
       ],
       "notes": "Use Vitest and Playwright.",
-      "status": "in_progress",
-      "claimed_by": "worker-3"
+      "status": "pass"
     },
     {
       "id": "US-035",

@@ -300,15 +300,14 @@
         "availableure feedback shown when unavailable"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-012",
         "US-013",
         "US-015"
       ],
       "notes": "Use Clipboard API when available.",
-      "status": "in_progress",
-      "claimed_by": "worker-3"
+      "status": "pass"
     },
     {
       "id": "US-017",

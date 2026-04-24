@@ -48,3 +48,5 @@
 
 ## US-033: Add reduced motion behavior
 
+## US-016: Add receipt copy action
+

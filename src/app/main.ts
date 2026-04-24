@@ -3,6 +3,7 @@ import { renderIntro } from '../modules/intro/intro-sequence';
 import { renderShell } from '../layout/shell';
 import { renderPermissionDebtModule } from '../modules/permission-debt';
 import { renderZeroClickOsintModule } from '../modules/zero-click-osint';
+import { renderShadowProfileModule } from '../modules/shadow-profile';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 
@@ -16,6 +17,9 @@ if (app) {
 
       const permissionDebt = await renderPermissionDebtModule();
       dashboard.appendChild(permissionDebt);
+
+      const shadowProfile = await renderShadowProfileModule();
+      dashboard.appendChild(shadowProfile);
     }
   });
 }

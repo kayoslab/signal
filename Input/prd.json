@@ -346,7 +346,8 @@
         "US-015"
       ],
       "notes": "Use client-side rendering library.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-1"
     },
     {
       "id": "US-019",
@@ -512,15 +513,14 @@
         "Severity uses Low/Medium/High labels"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-014",
         "US-022",
         "US-025"
       ],
       "notes": "Rules must be explainable.",
-      "status": "in_progress",
-      "claimed_by": "worker-2"
+      "status": "pass"
     },
     {
       "id": "US-028",

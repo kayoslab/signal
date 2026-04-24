@@ -52,3 +52,5 @@
 
 ## US-026: Render Shadow Profile module
 
+## US-027: Create threat model rules engine
+

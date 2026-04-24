@@ -88,3 +88,36 @@
     transition: none;
   }
 }
+
+.receipt-share-btn--loading {
+  opacity: 0.7;
+  animation: receipt-pulse 1s ease-in-out infinite;
+}
+
+.receipt-share-btn--success {
+  background-color: var(--color-accent, #2e7d32);
+  color: var(--color-surface, #fff);
+  transition: background-color 0.2s ease;
+}
+
+.receipt-share-btn--error {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .receipt-share-btn--loading {
+    animation: none;
+  }
+
+  .receipt-share-btn--success,
+  .receipt-share-btn--error {
+    transition: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .receipt-actions {
+    flex-wrap: wrap;
+  }
+}

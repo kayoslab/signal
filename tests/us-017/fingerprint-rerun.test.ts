@@ -142,7 +142,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     );
 
     // Row count should remain 15 (12 snapshot + 3 posture)
-    expect(rowsAfter.length).toBe(15);
+    expect(rowsAfter.length).toBe(27);
 
     // At least some values should differ (languages changed, DNT changed, etc.)
     const changed = valuesAfter.some((v, i) => v !== valuesBefore[i]);
@@ -182,7 +182,7 @@ describe('US-017: fingerprint receipt rerun integration', () => {
     await advanceTimersAndFlush(500);
 
     const rows = receipt.querySelectorAll('.receipt-row');
-    expect(rows.length).toBe(15);
+    expect(rows.length).toBe(27);
   });
 });
 

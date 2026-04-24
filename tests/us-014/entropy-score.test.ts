@@ -38,6 +38,9 @@ function makeSnapshot(overrides: {
       devicePixelRatio: 2,
       hardwareConcurrency: 8,
       touchSupport: false,
+      maxTouchPoints: 0,
+      deviceMemory: 8,
+      colorDepth: 24,
       ...deviceOverrides,
       storageSupport: storageOverride
         ? { ...defaultStorage, ...storageOverride }
@@ -50,8 +53,36 @@ function makeSnapshot(overrides: {
       webglVersion: 'webgl2',
       ...overrides.rendering,
     },
+    canvas: { canvasHash: 'abc12345', canvasSupported: true },
+    webglParams: {
+      maxTextureSize: 16384,
+      maxRenderbufferSize: 16384,
+      maxViewportDims: '16384x16384',
+      maxVertexAttribs: 16,
+      maxVertexUniformVectors: 4096,
+      maxFragmentUniformVectors: 1024,
+      maxVaryingVectors: 30,
+      maxCubeMapTextureSize: 16384,
+      aliasedLineWidthRange: '1-1',
+      aliasedPointSizeRange: '1-255',
+      shadingLanguageVersion: 'WebGL GLSL ES 3.00',
+      extensionCount: 40,
+      extensions: ['EXT_texture_filter_anisotropic'],
+    },
+    fonts: { detectedFonts: ['Arial', 'Helvetica'], fontCount: 2 },
+    speech: { voiceCount: 10, voiceList: ['English (US)'], speechSupported: true },
+    mediaFeatures: {
+      prefersColorScheme: 'light',
+      prefersReducedMotion: false,
+      prefersContrast: 'no-preference',
+      forcedColors: false,
+      colorGamut: 'srgb',
+      dynamicRange: 'standard',
+      invertedColors: false,
+    },
+    network: { effectiveType: '4g', downlink: 10, rtt: 50, saveData: false },
     collectedAt: '2026-01-15T12:00:00.000Z',
-    version: 1,
+    version: 2,
   };
 }
 
@@ -72,6 +103,9 @@ function makeUnavailableSnapshot(): SignalSnapshot {
       devicePixelRatio: 'unavailable',
       hardwareConcurrency: 'unavailable',
       touchSupport: 'unavailable',
+      maxTouchPoints: 'unavailable',
+      deviceMemory: 'unavailable',
+      colorDepth: 'unavailable',
       storageSupport: {
         localStorage: 'unavailable',
         sessionStorage: 'unavailable',
@@ -84,8 +118,36 @@ function makeUnavailableSnapshot(): SignalSnapshot {
       vendor: 'unavailable',
       webglVersion: 'unavailable',
     },
+    canvas: { canvasHash: 'unavailable', canvasSupported: false },
+    webglParams: {
+      maxTextureSize: 'unavailable' as unknown as number,
+      maxRenderbufferSize: 'unavailable' as unknown as number,
+      maxViewportDims: 'unavailable',
+      maxVertexAttribs: 'unavailable' as unknown as number,
+      maxVertexUniformVectors: 'unavailable' as unknown as number,
+      maxFragmentUniformVectors: 'unavailable' as unknown as number,
+      maxVaryingVectors: 'unavailable' as unknown as number,
+      maxCubeMapTextureSize: 'unavailable' as unknown as number,
+      aliasedLineWidthRange: 'unavailable',
+      aliasedPointSizeRange: 'unavailable',
+      shadingLanguageVersion: 'unavailable',
+      extensionCount: 0,
+      extensions: [],
+    },
+    fonts: { detectedFonts: [], fontCount: 0 },
+    speech: { voiceCount: 0, voiceList: [], speechSupported: false },
+    mediaFeatures: {
+      prefersColorScheme: 'unavailable',
+      prefersReducedMotion: 'unavailable' as unknown as boolean,
+      prefersContrast: 'unavailable',
+      forcedColors: 'unavailable' as unknown as boolean,
+      colorGamut: 'unavailable',
+      dynamicRange: 'unavailable',
+      invertedColors: 'unavailable' as unknown as boolean,
+    },
+    network: { effectiveType: 'unavailable', downlink: 'unavailable' as unknown as number, rtt: 'unavailable' as unknown as number, saveData: 'unavailable' as unknown as boolean },
     collectedAt: '2026-01-15T12:00:00.000Z',
-    version: 1,
+    version: 2,
   };
 }
 
@@ -120,10 +182,19 @@ describe('US-014: entropy heuristic scoring', () => {
   });
 
   describe('boundary: all signals missing/unavailable', () => {
-    it('returns score 0 when all signals are unavailable sentinels', () => {
+    it('returns near-zero score when all signals are unavailable sentinels', () => {
       const snapshot = makeUnavailableSnapshot();
       const result = calculateEntropyScore(snapshot);
-      expect(result.score).toBe(0);
+      // mediaFeatures composite does not collapse to a single sentinel,
+      // so it contributes its weight (6) even when sub-values are sentinels.
+      const totalWeight = Object.values(ENTROPY_WEIGHTS).reduce(
+        (sum, w) => sum + w,
+        0,
+      );
+      const mediaFeaturesLeak = Math.round(
+        (ENTROPY_WEIGHTS['mediaFeatures'] / totalWeight) * 100,
+      );
+      expect(result.score).toBe(mediaFeaturesLeak);
     });
 
     it('returns score 0 when all string signals are "unknown"', () => {
@@ -140,6 +211,9 @@ describe('US-014: entropy heuristic scoring', () => {
           devicePixelRatio: 'unknown',
           hardwareConcurrency: 'unknown',
           touchSupport: 'unknown',
+          maxTouchPoints: 'unknown',
+          deviceMemory: 'unknown',
+          colorDepth: 'unknown',
           storageSupport: {
             localStorage: 'unavailable',
             sessionStorage: 'unavailable',
@@ -152,11 +226,47 @@ describe('US-014: entropy heuristic scoring', () => {
           vendor: 'unknown',
           webglVersion: 'unknown',
         },
+        canvas: { canvasHash: 'unknown', canvasSupported: false },
+        webglParams: {
+          maxTextureSize: 'unknown' as unknown as number,
+          maxRenderbufferSize: 'unknown' as unknown as number,
+          maxViewportDims: 'unknown',
+          maxVertexAttribs: 'unknown' as unknown as number,
+          maxVertexUniformVectors: 'unknown' as unknown as number,
+          maxFragmentUniformVectors: 'unknown' as unknown as number,
+          maxVaryingVectors: 'unknown' as unknown as number,
+          maxCubeMapTextureSize: 'unknown' as unknown as number,
+          aliasedLineWidthRange: 'unknown',
+          aliasedPointSizeRange: 'unknown',
+          shadingLanguageVersion: 'unknown',
+          extensionCount: 0,
+          extensions: [],
+        },
+        fonts: { detectedFonts: [], fontCount: 0 },
+        speech: { voiceCount: 0, voiceList: [], speechSupported: false },
+        mediaFeatures: {
+          prefersColorScheme: 'unknown',
+          prefersReducedMotion: 'unknown' as unknown as boolean,
+          prefersContrast: 'unknown',
+          forcedColors: 'unknown' as unknown as boolean,
+          colorGamut: 'unknown',
+          dynamicRange: 'unknown',
+          invertedColors: 'unknown' as unknown as boolean,
+        },
+        network: { effectiveType: 'unknown', downlink: 'unknown' as unknown as number, rtt: 'unknown' as unknown as number, saveData: 'unknown' as unknown as boolean },
         collectedAt: '2026-01-15T12:00:00.000Z',
-        version: 1,
+        version: 2,
       };
       const result = calculateEntropyScore(snapshot);
-      expect(result.score).toBe(0);
+      // mediaFeatures composite does not collapse to a single sentinel
+      const totalWeight = Object.values(ENTROPY_WEIGHTS).reduce(
+        (sum, w) => sum + w,
+        0,
+      );
+      const mediaFeaturesLeak = Math.round(
+        (ENTROPY_WEIGHTS['mediaFeatures'] / totalWeight) * 100,
+      );
+      expect(result.score).toBe(mediaFeaturesLeak);
     });
   });
 
@@ -243,8 +353,9 @@ describe('US-014: entropy heuristic scoring', () => {
       expect(rendererResult.score).toBeGreaterThan(webglResult.score);
     });
 
-    it('single high-weight signal (renderer=15) score equals its weight proportion', () => {
+    it('single high-weight signal (renderer=15) score reflects its weight plus baseline', () => {
       const snapshot = makeUnavailableSnapshot();
+      const baseResult = calculateEntropyScore(snapshot);
       const withRenderer = {
         ...snapshot,
         rendering: {
@@ -254,18 +365,21 @@ describe('US-014: entropy heuristic scoring', () => {
       };
 
       const result = calculateEntropyScore(withRenderer);
+      // The score should increase by the renderer's weight proportion
+      expect(result.score).toBeGreaterThan(baseResult.score);
       const totalWeight = Object.values(ENTROPY_WEIGHTS).reduce(
         (sum, w) => sum + w,
         0,
       );
       const expected = Math.round(
-        (ENTROPY_WEIGHTS['renderer'] / totalWeight) * 100,
+        ((ENTROPY_WEIGHTS['renderer'] + ENTROPY_WEIGHTS['mediaFeatures']) / totalWeight) * 100,
       );
       expect(result.score).toBe(expected);
     });
 
-    it('single low-weight signal (webglSupported=1) score equals its weight proportion', () => {
+    it('single low-weight signal (webglSupported=1) score reflects its weight plus baseline', () => {
       const snapshot = makeUnavailableSnapshot();
+      const baseResult = calculateEntropyScore(snapshot);
       // webglSupported as boolean 'true' is stringified to 'true', not a sentinel
       const withWebgl = {
         ...snapshot,
@@ -276,12 +390,13 @@ describe('US-014: entropy heuristic scoring', () => {
       };
 
       const result = calculateEntropyScore(withWebgl);
+      expect(result.score).toBeGreaterThanOrEqual(baseResult.score);
       const totalWeight = Object.values(ENTROPY_WEIGHTS).reduce(
         (sum, w) => sum + w,
         0,
       );
       const expected = Math.round(
-        (ENTROPY_WEIGHTS['webglSupported'] / totalWeight) * 100,
+        ((ENTROPY_WEIGHTS['webglSupported'] + ENTROPY_WEIGHTS['mediaFeatures']) / totalWeight) * 100,
       );
       expect(result.score).toBe(expected);
     });
@@ -528,7 +643,7 @@ describe('US-014: entropy heuristic scoring', () => {
   });
 
   describe('weight table', () => {
-    it('ENTROPY_WEIGHTS contains entries for all 13 expected signals', () => {
+    it('ENTROPY_WEIGHTS contains entries for all 23 expected signals', () => {
       const expectedSignals = [
         'renderer',
         'languages',
@@ -543,6 +658,16 @@ describe('US-014: entropy heuristic scoring', () => {
         'doNotTrack',
         'storageSupport',
         'webglSupported',
+        'canvasHash',
+        'fonts',
+        'webglParams',
+        'colorDepth',
+        'maxTouchPoints',
+        'deviceMemory',
+        'speechVoices',
+        'mediaFeatures',
+        'networkType',
+        'webglExtensions',
       ];
 
       for (const signal of expectedSignals) {

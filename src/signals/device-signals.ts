@@ -4,6 +4,9 @@ export interface DeviceCapabilitySignals {
   devicePixelRatio: number | string;
   hardwareConcurrency: number | string;
   touchSupport: boolean | string;
+  maxTouchPoints: number | string;
+  deviceMemory: number | string;
+  colorDepth: number | string;
   storageSupport: {
     localStorage: boolean | string;
     sessionStorage: boolean | string;
@@ -95,6 +98,32 @@ function collectStorageSupport(): DeviceCapabilitySignals['storageSupport'] {
   };
 }
 
+function collectMaxTouchPoints(): number | string {
+  if (
+    typeof globalThis.navigator === 'undefined' ||
+    typeof globalThis.navigator.maxTouchPoints !== 'number'
+  ) {
+    return UNAVAILABLE;
+  }
+  return globalThis.navigator.maxTouchPoints;
+}
+
+function collectDeviceMemory(): number | string {
+  const nav = globalThis.navigator as { deviceMemory?: number };
+  if (typeof nav?.deviceMemory !== 'number') {
+    return UNAVAILABLE;
+  }
+  return nav.deviceMemory;
+}
+
+function collectColorDepth(): number | string {
+  if (typeof globalThis.window === 'undefined' || !globalThis.window.screen) {
+    return UNAVAILABLE;
+  }
+  const depth = globalThis.window.screen.colorDepth;
+  return typeof depth === 'number' ? depth : UNAVAILABLE;
+}
+
 export function collectDeviceCapabilitySignals(): DeviceCapabilitySignals {
   const screen = collectScreenDimensions();
 
@@ -104,6 +133,9 @@ export function collectDeviceCapabilitySignals(): DeviceCapabilitySignals {
     devicePixelRatio: collectDevicePixelRatio(),
     hardwareConcurrency: collectHardwareConcurrency(),
     touchSupport: collectTouchSupport(),
+    maxTouchPoints: collectMaxTouchPoints(),
+    deviceMemory: collectDeviceMemory(),
+    colorDepth: collectColorDepth(),
     storageSupport: collectStorageSupport(),
   };
 }

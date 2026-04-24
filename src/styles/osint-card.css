@@ -71,6 +71,12 @@
   }
 }
 
+@media (min-width: 1200px) {
+  .osint-card-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .osint-card {
     transition: none;

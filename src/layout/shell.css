@@ -24,9 +24,33 @@
   width: 100%;
 }
 
+/* Mobile: receipt first */
+.dashboard-receipt {
+  order: -1;
+}
+
+@media (min-width: 768px) {
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-receipt {
+    order: unset;
+  }
+
+  /* OSINT section spans full width on tablet since it has many cards */
+  .dashboard-osint {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (min-width: 1200px) {
   .dashboard {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .dashboard-osint {
+    grid-column: 1 / -1;
   }
 }
 

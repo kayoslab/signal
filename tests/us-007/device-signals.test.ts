@@ -14,6 +14,9 @@ describe('US-007: collectDeviceCapabilitySignals', () => {
       expect(signals).toHaveProperty('devicePixelRatio');
       expect(signals).toHaveProperty('hardwareConcurrency');
       expect(signals).toHaveProperty('touchSupport');
+      expect(signals).toHaveProperty('maxTouchPoints');
+      expect(signals).toHaveProperty('deviceMemory');
+      expect(signals).toHaveProperty('colorDepth');
       expect(signals).toHaveProperty('storageSupport');
     });
 
@@ -33,6 +36,9 @@ describe('US-007: collectDeviceCapabilitySignals', () => {
         'devicePixelRatio',
         'hardwareConcurrency',
         'touchSupport',
+        'maxTouchPoints',
+        'deviceMemory',
+        'colorDepth',
         'storageSupport',
       ];
 

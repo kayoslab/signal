@@ -90,7 +90,7 @@ describe('US-020: renderZeroClickOsintModule — DOM structure', () => {
     const { renderZeroClickOsintModule } = await import(
       '../../src/modules/zero-click-osint/zero-click-osint-module'
     );
-    const el = renderZeroClickOsintModule();
+    const el = await renderZeroClickOsintModule();
     expect(el).toBeInstanceOf(HTMLElement);
   });
 
@@ -99,7 +99,7 @@ describe('US-020: renderZeroClickOsintModule — DOM structure', () => {
     const { renderZeroClickOsintModule } = await import(
       '../../src/modules/zero-click-osint/zero-click-osint-module'
     );
-    const el = renderZeroClickOsintModule();
+    const el = await renderZeroClickOsintModule();
     const cardList = el.querySelector('.osint-card-list');
     expect(cardList).not.toBeNull();
   });
@@ -109,7 +109,7 @@ describe('US-020: renderZeroClickOsintModule — DOM structure', () => {
     const { renderZeroClickOsintModule } = await import(
       '../../src/modules/zero-click-osint/zero-click-osint-module'
     );
-    const el = renderZeroClickOsintModule();
+    const el = await renderZeroClickOsintModule();
     const cards = el.querySelectorAll('.osint-card');
     expect(cards.length).toBeGreaterThanOrEqual(7);
   });
@@ -119,7 +119,7 @@ describe('US-020: renderZeroClickOsintModule — DOM structure', () => {
     const { renderZeroClickOsintModule } = await import(
       '../../src/modules/zero-click-osint/zero-click-osint-module'
     );
-    const el = renderZeroClickOsintModule();
+    const el = await renderZeroClickOsintModule();
     const cards = el.querySelectorAll('.osint-card');
     for (const card of Array.from(cards)) {
       const badge = card.querySelector('.osint-card-confidence');
@@ -132,7 +132,7 @@ describe('US-020: renderZeroClickOsintModule — DOM structure', () => {
     const { renderZeroClickOsintModule } = await import(
       '../../src/modules/zero-click-osint/zero-click-osint-module'
     );
-    const el = renderZeroClickOsintModule();
+    const el = await renderZeroClickOsintModule();
     const cards = el.querySelectorAll('.osint-card');
     for (const card of Array.from(cards)) {
       const title = card.querySelector('.osint-card-title');
@@ -146,7 +146,7 @@ describe('US-020: renderZeroClickOsintModule — DOM structure', () => {
     const { renderZeroClickOsintModule } = await import(
       '../../src/modules/zero-click-osint/zero-click-osint-module'
     );
-    const el = renderZeroClickOsintModule();
+    const el = await renderZeroClickOsintModule();
     const cards = el.querySelectorAll('.osint-card');
     for (const card of Array.from(cards)) {
       const why = card.querySelector('.osint-card-why');

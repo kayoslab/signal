@@ -144,6 +144,12 @@ describe('US-009: collectSnapshot', () => {
       expect(snapshot).toHaveProperty('locale');
       expect(snapshot).toHaveProperty('device');
       expect(snapshot).toHaveProperty('rendering');
+      expect(snapshot).toHaveProperty('canvas');
+      expect(snapshot).toHaveProperty('webglParams');
+      expect(snapshot).toHaveProperty('fonts');
+      expect(snapshot).toHaveProperty('speech');
+      expect(snapshot).toHaveProperty('mediaFeatures');
+      expect(snapshot).toHaveProperty('network');
       expect(snapshot).toHaveProperty('collectedAt');
       expect(snapshot).toHaveProperty('version');
     });
@@ -154,6 +160,12 @@ describe('US-009: collectSnapshot', () => {
         'locale',
         'device',
         'rendering',
+        'canvas',
+        'webglParams',
+        'fonts',
+        'speech',
+        'mediaFeatures',
+        'network',
         'collectedAt',
         'version',
       ];
@@ -176,6 +188,9 @@ describe('US-009: collectSnapshot', () => {
         'devicePixelRatio',
         'hardwareConcurrency',
         'touchSupport',
+        'maxTouchPoints',
+        'deviceMemory',
+        'colorDepth',
         'storageSupport',
       ];
 
@@ -226,9 +241,9 @@ describe('US-009: collectSnapshot', () => {
   describe('version field', () => {
     beforeEach(() => setupBrowserEnv());
 
-    it('equals 1', () => {
+    it('equals 2', () => {
       const snapshot = collectSnapshot();
-      expect(snapshot.version).toBe(1);
+      expect(snapshot.version).toBe(2);
     });
 
     it('is a number', () => {

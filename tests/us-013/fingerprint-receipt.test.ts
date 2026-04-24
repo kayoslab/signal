@@ -89,7 +89,7 @@ describe('US-013: renderFingerprintReceipt integration', () => {
     // Screen Resolution, Device Pixel Ratio, Touch Support, CPU Threads,
     // Timezone, Languages, Platform, Do Not Track = 12
     // + Entropy Level, Uniqueness Estimate, Privacy Posture = 15
-    expect(rows.length).toBe(15);
+    expect(rows.length).toBe(27);
   });
 
   it('receipt rows contain label and value elements', async () => {

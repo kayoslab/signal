@@ -18,24 +18,9 @@ export interface EntropyResult {
  *
  * Higher weights indicate signals that vary more across the global browser
  * population and therefore contribute more to fingerprint uniqueness.
- *
- * - renderer (15) — hundreds of unique GPU strings, highest entropy
- * - languages (12) — rare language combos are highly distinguishing
- * - screenResolution (10) — thousands of width×height combinations
- * - timezone (10) — ~400 IANA zones worldwide
- * - vendor (8) — dozens of WebGL vendor strings
- * - platform (7) — ~10 major platforms, correlates with other signals
- * - hardwareConcurrency (6) — 1–64 cores, moderately distinguishing
- * - devicePixelRatio (5) — ~20–30 common values
- * - webglVersion (3) — 2–3 states, low entropy
- * - touchSupport (3) — binary, low entropy
- * - doNotTrack (2) — 3–4 states, very common values
- * - storageSupport (2) — most browsers support all three, low entropy
- * - webglSupported (1) — nearly always true, minimal entropy
- *
- * These are heuristic approximations, not scientifically measured values.
  */
 export const ENTROPY_WEIGHTS: Record<string, number> = {
+  // Original signals
   renderer: 15,
   languages: 12,
   screenResolution: 10,
@@ -49,6 +34,18 @@ export const ENTROPY_WEIGHTS: Record<string, number> = {
   doNotTrack: 2,
   storageSupport: 2,
   webglSupported: 1,
+
+  // New signals — canvas & audio are the highest-entropy fingerprinting vectors
+  canvasHash: 18,
+  fonts: 16,
+  webglParams: 14,
+  colorDepth: 3,
+  maxTouchPoints: 3,
+  deviceMemory: 4,
+  speechVoices: 10,
+  mediaFeatures: 6,
+  networkType: 3,
+  webglExtensions: 8,
 };
 
 const MISSING_SENTINELS = new Set(['unknown', 'unavailable']);
@@ -103,8 +100,40 @@ function extractSignalValue(
       return `${ls}${ss}${idb}`;
     }
     case 'webglSupported':
-      // webglSupported is boolean — false means no WebGL, no fingerprint signal
       return snapshot.rendering.webglSupported ? 'true' : 'unavailable';
+
+    // New signals
+    case 'canvasHash':
+      return snapshot.canvas.canvasSupported ? snapshot.canvas.canvasHash : 'unavailable';
+    case 'fonts':
+      return snapshot.fonts.fontCount > 0
+        ? `${snapshot.fonts.fontCount}:${snapshot.fonts.detectedFonts.join(',')}`
+        : 'unavailable';
+    case 'webglParams': {
+      const p = snapshot.webglParams;
+      const val = String(p.maxTextureSize);
+      return isMissing(val) ? 'unavailable' : `${p.maxTextureSize}|${p.maxRenderbufferSize}|${p.maxVertexAttribs}`;
+    }
+    case 'colorDepth':
+      return String(snapshot.device.colorDepth);
+    case 'maxTouchPoints':
+      return String(snapshot.device.maxTouchPoints);
+    case 'deviceMemory':
+      return String(snapshot.device.deviceMemory);
+    case 'speechVoices':
+      return typeof snapshot.speech.voiceCount === 'number' && snapshot.speech.voiceCount > 0
+        ? `${snapshot.speech.voiceCount}:${snapshot.speech.voiceList.slice(0, 5).join(',')}`
+        : 'unavailable';
+    case 'mediaFeatures': {
+      const mf = snapshot.mediaFeatures;
+      return `${mf.prefersColorScheme}|${mf.colorGamut}|${mf.dynamicRange}|${mf.prefersReducedMotion}`;
+    }
+    case 'networkType':
+      return String(snapshot.network.effectiveType);
+    case 'webglExtensions':
+      return snapshot.webglParams.extensions.length > 0
+        ? String(snapshot.webglParams.extensionCount)
+        : 'unavailable';
     default:
       return 'unknown';
   }

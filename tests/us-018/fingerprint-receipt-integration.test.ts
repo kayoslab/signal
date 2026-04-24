@@ -96,6 +96,6 @@ describe('US-018: renderFingerprintReceipt – Share Image integration', () => {
     );
     const receipt = renderFingerprintReceipt();
     const rows = receipt.querySelectorAll('.receipt-row');
-    expect(rows.length).toBe(15);
+    expect(rows.length).toBe(27);
   });
 });

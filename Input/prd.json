@@ -571,14 +571,13 @@
         "No fear-based language used"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-005",
         "US-029"
       ],
       "notes": "Practical not theoretical.",
-      "status": "in_progress",
-      "claimed_by": "worker-3"
+      "status": "pass"
     },
     {
       "id": "US-031",

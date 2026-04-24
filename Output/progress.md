@@ -62,3 +62,5 @@
 
 ## US-018: Add receipt image export action
 
+## US-030: Render Hardening Actions module
+

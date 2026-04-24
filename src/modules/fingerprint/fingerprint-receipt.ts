@@ -4,6 +4,8 @@ import { computePrivacyPosture } from '../../scoring/privacy-posture';
 import { createReceipt, createReceiptRow } from '../../ui/receipt';
 import type { ReceiptRow } from '../../ui/receipt';
 import { createRerunButton } from '../../ui/rerun-button';
+import { createCopyButton } from '../../ui/copy-button';
+import { formatReceiptText } from './format-receipt-text';
 import { formatSnapshotToRows } from './format-snapshot';
 
 const MIN_LOADING_MS = 300;
@@ -29,12 +31,15 @@ export function renderFingerprintReceipt(): HTMLElement {
   const actions = document.createElement('div');
   actions.className = 'receipt-actions';
 
+  let currentRows = rows;
+
   const rerunBtn = createRerunButton(async () => {
     const [freshSnapshot] = await Promise.all([
       Promise.resolve(collectSnapshot()),
       new Promise<void>((r) => setTimeout(r, MIN_LOADING_MS)),
     ]);
     const freshRows = [...formatSnapshotToRows(freshSnapshot), ...buildPostureRows(freshSnapshot)];
+    currentRows = freshRows;
 
     rowsContainer.innerHTML = '';
     for (const row of freshRows) {
@@ -42,6 +47,11 @@ export function renderFingerprintReceipt(): HTMLElement {
     }
   });
 
+  const copyBtn = createCopyButton(() =>
+    formatReceiptText('Fingerprint Receipt', currentRows),
+  );
+
+  actions.appendChild(copyBtn);
   actions.appendChild(rerunBtn);
   receipt.appendChild(actions);
 

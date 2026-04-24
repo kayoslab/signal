@@ -339,15 +339,14 @@
         "availableure state handled gracefully"
       ],
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-012",
         "US-013",
         "US-015"
       ],
       "notes": "Use client-side rendering library.",
-      "status": "in_progress",
-      "claimed_by": "worker-1"
+      "status": "pass"
     },
     {
       "id": "US-019",

@@ -60,3 +60,5 @@
 
 ## US-028: Render Threat Model module
 
+## US-018: Add receipt image export action
+

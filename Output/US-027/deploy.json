@@ -1,0 +1,1 @@
+{"decision":"pass","gates_checked":["lint","typecheck","tests"],"failures":[],"notes":"All gates pass. Lint: clean. Typecheck: clean. Tests: 759 passed across 39 test files (including 42 US-027 threat-rules tests)."}

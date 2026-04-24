@@ -7,6 +7,7 @@ export function createRerunButton(
   const btn = document.createElement('button');
   btn.className = 'btn btn-secondary receipt-rerun-btn';
   btn.textContent = DEFAULT_LABEL;
+  btn.setAttribute('aria-label', 'Re-run audit');
 
   let running = false;
 

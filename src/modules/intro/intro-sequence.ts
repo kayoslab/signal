@@ -18,6 +18,8 @@ export async function renderIntro(root: HTMLElement): Promise<void> {
   const overlay = document.createElement('div');
   overlay.className = 'intro-overlay';
   overlay.setAttribute('data-intro', '');
+  overlay.setAttribute('role', 'status');
+  overlay.setAttribute('aria-live', 'polite');
 
   const headline = createLine(
     'Your browser is already talking.',

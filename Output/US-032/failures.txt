@@ -1,0 +1,1 @@
+tests/us-034/main-smoke.test.ts: 'bootstraps the app when #app element exists' - expected dashboardDiv.children to have length 3 but got 4 (pre-existing test from US-034 not updated for skip link added by US-032)

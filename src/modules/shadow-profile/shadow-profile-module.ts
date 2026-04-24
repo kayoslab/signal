@@ -11,7 +11,9 @@ export async function renderShadowProfileModule(): Promise<HTMLElement> {
   section.className = 'shadow-profile';
 
   const h2 = document.createElement('h2');
+  h2.id = 'section-shadow-profile';
   h2.textContent = 'Shadow Profile';
+  section.setAttribute('aria-labelledby', 'section-shadow-profile');
   section.appendChild(h2);
 
   const snapshot = collectSnapshot();

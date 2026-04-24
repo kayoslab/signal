@@ -14,7 +14,9 @@ export async function renderThreatModelModule(): Promise<HTMLElement> {
   section.className = 'threat-model';
 
   const h2 = document.createElement('h2');
+  h2.id = 'section-threat-model';
   h2.textContent = 'Threat Model: You';
+  section.setAttribute('aria-labelledby', 'section-threat-model');
   section.appendChild(h2);
 
   const snapshot = collectSnapshot();

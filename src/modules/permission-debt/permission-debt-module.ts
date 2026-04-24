@@ -19,6 +19,8 @@ export async function renderPermissionDebtModule(): Promise<HTMLElement> {
   const debtResult = calculatePermissionDebtScore(permissions);
   const rows = formatPermissions(filtered);
   const receipt = createReceipt('Permission Debt', rows);
+  receipt.setAttribute('role', 'region');
+  receipt.setAttribute('aria-label', 'Permission Debt');
 
   const scoreSection = document.createElement('div');
   scoreSection.className = 'permission-debt-score';

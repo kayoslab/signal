@@ -6,6 +6,12 @@ export function renderShell(root: HTMLElement): void {
   const shell = document.createElement('div');
   shell.className = 'shell';
 
+  // Skip-to-main navigation link for keyboard users
+  const skipLink = document.createElement('a');
+  skipLink.href = '#dashboard';
+  skipLink.className = 'skip-link';
+  skipLink.textContent = 'Skip to main content';
+
   const header = document.createElement('header');
   header.className = 'shell-header';
   const title = document.createElement('h1');
@@ -40,6 +46,7 @@ export function renderShell(root: HTMLElement): void {
   shell.appendChild(main);
   shell.appendChild(footer);
 
+  root.appendChild(skipLink);
   root.appendChild(header);
   root.appendChild(main);
   root.appendChild(footer);

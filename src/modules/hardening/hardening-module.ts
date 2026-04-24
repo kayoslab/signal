@@ -66,7 +66,9 @@ export async function renderHardeningModule(
   section.className = 'hardening-actions';
 
   const h2 = document.createElement('h2');
+  h2.id = 'section-hardening-actions';
   h2.textContent = 'Hardening Actions';
+  section.setAttribute('aria-labelledby', 'section-hardening-actions');
   section.appendChild(h2);
 
   const snapshot = collectSnapshot();

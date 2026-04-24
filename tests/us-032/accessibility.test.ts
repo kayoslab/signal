@@ -437,13 +437,13 @@ describe('AC3: Semantic landmarks used', () => {
         '../../src/ui/threat-model-card'
       );
       const card = createThreatCard({
-        id: 'test',
+        ruleId: 'test',
         title: 'Test Threat',
         description: 'Description',
         severity: 'High',
         evidence: ['ev1'],
         userImpact: 'Impact text',
-        category: 'privacy',
+        category: 'identity-exposure',
       });
       expect(card.tagName).toBe('ARTICLE');
     });
@@ -453,13 +453,13 @@ describe('AC3: Semantic landmarks used', () => {
         '../../src/ui/threat-model-card'
       );
       const card = createThreatCard({
-        id: 'test',
+        ruleId: 'test',
         title: 'Test Threat',
         description: 'Description',
         severity: 'High',
         evidence: ['ev1'],
         userImpact: 'Impact text',
-        category: 'privacy',
+        category: 'identity-exposure',
       });
       const h4 = card.querySelector('h4');
       expect(h4).not.toBeNull();
@@ -471,13 +471,13 @@ describe('AC3: Semantic landmarks used', () => {
         '../../src/ui/threat-model-card'
       );
       const card = createThreatCard({
-        id: 'test',
+        ruleId: 'test',
         title: 'Test',
         description: 'Desc',
         severity: 'Medium',
         evidence: ['Evidence 1', 'Evidence 2'],
         userImpact: 'Impact',
-        category: 'tracking',
+        category: 'social-engineering',
       });
       const ul = card.querySelector('ul');
       expect(ul).not.toBeNull();
@@ -490,13 +490,13 @@ describe('AC3: Semantic landmarks used', () => {
         '../../src/ui/threat-model-card'
       );
       const card = createThreatCard({
-        id: 'test',
+        ruleId: 'test',
         title: 'Test',
         description: 'Desc',
         severity: 'High',
         evidence: [],
         userImpact: 'Impact',
-        category: 'privacy',
+        category: 'identity-exposure',
       });
       const badge = card.querySelector('.threat-card-severity');
       expect(badge).not.toBeNull();

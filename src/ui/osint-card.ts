@@ -43,7 +43,9 @@ export function createOsintSection(heading: string, cards: OsintCardData[]): HTM
   section.className = 'zero-click-osint';
 
   const h2 = document.createElement('h2');
+  h2.id = 'section-zero-click-osint';
   h2.textContent = heading;
+  section.setAttribute('aria-labelledby', 'section-zero-click-osint');
   section.appendChild(h2);
   section.appendChild(createOsintCardList(cards));
 

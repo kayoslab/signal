@@ -1,1 +1,1 @@
-{"test_results":"fail","failures":["tests/us-034/main-smoke.test.ts: 'bootstraps the app when #app element exists' - expected dashboardDiv.children to have length 3 but got 4 (pre-existing test from US-034 not updated for skip link added by US-032)"],"failure_source":"test","tests_added":["tests/us-032/accessibility.test.ts"],"tests_modified":[]}
+{"test_results":"pass","failures":[],"tests_added":[],"tests_modified":["tests/us-034/main-smoke.test.ts"]}

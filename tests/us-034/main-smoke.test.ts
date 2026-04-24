@@ -23,6 +23,10 @@ vi.mock('../../src/modules/shadow-profile', () => ({
   renderShadowProfileModule: vi.fn(),
 }));
 
+vi.mock('../../src/modules/threat-model', () => ({
+  renderThreatModelModule: vi.fn(),
+}));
+
 vi.mock('../../src/modules/hardening', () => ({
   renderHardeningModule: vi.fn(),
 }));
@@ -32,6 +36,7 @@ import { renderShell } from '../../src/layout/shell';
 import { renderZeroClickOsintModule } from '../../src/modules/zero-click-osint';
 import { renderPermissionDebtModule } from '../../src/modules/permission-debt';
 import { renderShadowProfileModule } from '../../src/modules/shadow-profile';
+import { renderThreatModelModule } from '../../src/modules/threat-model';
 import { renderHardeningModule } from '../../src/modules/hardening';
 
 describe('US-034: Main page smoke test', () => {
@@ -54,6 +59,8 @@ describe('US-034: Main page smoke test', () => {
     permDebtEl.className = 'perm-debt';
     const shadowProfileEl = document.createElement('section');
     shadowProfileEl.className = 'shadow-profile';
+    const threatModelEl = document.createElement('section');
+    threatModelEl.className = 'threat-model';
 
     vi.mocked(renderIntro).mockResolvedValue(undefined);
     vi.mocked(renderShell).mockImplementation((root: HTMLElement) => {
@@ -62,6 +69,7 @@ describe('US-034: Main page smoke test', () => {
     vi.mocked(renderZeroClickOsintModule).mockReturnValue(zeroClickEl);
     vi.mocked(renderPermissionDebtModule).mockResolvedValue(permDebtEl);
     vi.mocked(renderShadowProfileModule).mockResolvedValue(shadowProfileEl);
+    vi.mocked(renderThreatModelModule).mockResolvedValue(threatModelEl);
     vi.mocked(renderHardeningModule).mockResolvedValue(undefined);
 
     await import('../../src/app/main');
@@ -75,11 +83,13 @@ describe('US-034: Main page smoke test', () => {
     expect(renderZeroClickOsintModule).toHaveBeenCalled();
     expect(renderPermissionDebtModule).toHaveBeenCalled();
     expect(renderShadowProfileModule).toHaveBeenCalled();
+    expect(renderThreatModelModule).toHaveBeenCalled();
     expect(renderHardeningModule).toHaveBeenCalled();
-    expect(dashboardDiv.children).toHaveLength(3);
+    expect(dashboardDiv.children).toHaveLength(4);
     expect(dashboardDiv.children[0]).toBe(zeroClickEl);
     expect(dashboardDiv.children[1]).toBe(permDebtEl);
     expect(dashboardDiv.children[2]).toBe(shadowProfileEl);
+    expect(dashboardDiv.children[3]).toBe(threatModelEl);
   });
 
   it('does not crash when #app element is missing', async () => {

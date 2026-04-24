@@ -30,22 +30,21 @@
   margin: 0 auto;
 }
 
-/* Mobile: receipt first, everything else stacked */
+/* Receipt — always centered and prominent */
 .dashboard-receipt {
-  order: -1;
+  justify-self: center;
+  width: 100%;
+  max-width: 520px;
 }
 
-/* Tablet: 2-column, OSINT + hardening span full width */
+/* Tablet */
 @media (min-width: 768px) {
   .dashboard {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .dashboard-receipt {
-    order: unset;
     grid-column: 1 / -1;
-    max-width: 480px;
-    justify-self: center;
   }
 
   .dashboard-osint {
@@ -57,16 +56,14 @@
   }
 }
 
-/* Desktop: 3-column, receipt centered with flanking sections */
+/* Desktop */
 @media (min-width: 1200px) {
   .dashboard {
-    grid-template-columns: 1fr minmax(auto, 420px) 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .dashboard-receipt {
-    max-width: unset;
-    grid-column: 2;
-    justify-self: stretch;
+    grid-column: 1 / -1;
   }
 
   .dashboard-osint {

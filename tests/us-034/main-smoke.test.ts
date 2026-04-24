@@ -86,9 +86,9 @@ describe('US-034: Main page smoke test', () => {
     expect(renderThreatModelModule).toHaveBeenCalled();
     expect(renderHardeningModule).toHaveBeenCalled();
     expect(dashboardDiv.children).toHaveLength(4);
-    expect(dashboardDiv.children[0]).toBe(zeroClickEl);
-    expect(dashboardDiv.children[1]).toBe(shadowProfileEl);
-    expect(dashboardDiv.children[2]).toBe(receiptEl);
+    expect(dashboardDiv.children[0]).toBe(receiptEl);
+    expect(dashboardDiv.children[1]).toBe(zeroClickEl);
+    expect(dashboardDiv.children[2]).toBe(shadowProfileEl);
     expect(dashboardDiv.children[3]).toBe(threatModelEl);
   });
 

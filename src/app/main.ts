@@ -18,25 +18,23 @@ if (app) {
     renderShell(app);
     const dashboard = document.querySelector<HTMLElement>('#dashboard');
     if (dashboard) {
-      // Row 1: OSINT — full width
-      const zeroClickOsint = await renderZeroClickOsintModule();
-      zeroClickOsint.classList.add('dashboard-osint');
-      dashboard.appendChild(zeroClickOsint);
-
-      // Row 2: Shadow Profile | Receipt (center) | Threat Model
-      const shadowProfile = await renderShadowProfileModule();
-      shadowProfile.classList.add('dashboard-side');
-      dashboard.appendChild(shadowProfile);
-
+      // Receipt — always first, centered, prominent
       const receipt = await renderFingerprintReceipt();
       receipt.classList.add('dashboard-receipt');
       dashboard.appendChild(receipt);
 
+      // OSINT — full width card grid
+      const zeroClickOsint = await renderZeroClickOsintModule();
+      zeroClickOsint.classList.add('dashboard-osint');
+      dashboard.appendChild(zeroClickOsint);
+
+      // Balanced bottom row
+      const shadowProfile = await renderShadowProfileModule();
+      dashboard.appendChild(shadowProfile);
+
       const threatModel = await renderThreatModelModule();
-      threatModel.classList.add('dashboard-side');
       dashboard.appendChild(threatModel);
 
-      // Row 3: Hardening — full width
       await renderHardeningModule(dashboard);
     }
   });

@@ -56,3 +56,5 @@
 
 ## US-034: Create automated test coverage
 
+## US-029: Create hardening recommendation rules
+

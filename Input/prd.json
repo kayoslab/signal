@@ -553,14 +553,14 @@
         "At least five possible actions exist"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-014",
         "US-022",
         "US-027"
       ],
       "notes": "Action engine only.",
-      "status": "available"
+      "status": "pass"
     },
     {
       "id": "US-030",

@@ -5,6 +5,7 @@ import { renderPermissionDebtModule } from '../modules/permission-debt';
 import { renderZeroClickOsintModule } from '../modules/zero-click-osint';
 import { renderShadowProfileModule } from '../modules/shadow-profile';
 import { renderThreatModelModule } from '../modules/threat-model';
+import { renderHardeningModule } from '../modules/hardening';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 
@@ -24,6 +25,8 @@ if (app) {
 
       const threatModel = await renderThreatModelModule();
       dashboard.appendChild(threatModel);
+
+      await renderHardeningModule(dashboard);
     }
   });
 }

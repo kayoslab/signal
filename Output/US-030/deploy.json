@@ -1,0 +1,1 @@
+{"decision":"pass","gates_checked":["lint","typecheck","tests"],"failures":[],"notes":"All quality gates pass. Lint: clean. Typecheck: clean. Tests: 904 passed across 45 test files (including tests/us-030/hardening-module.test.ts)."}

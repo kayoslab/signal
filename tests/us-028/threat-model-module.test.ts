@@ -199,6 +199,10 @@ describe('US-028: at least four risk categories', () => {
     // 3. permission-abuse: needs granted high-risk permissions
     // 4. shoulder-surfing: needs screenWidth >= 1920, dpr <= 1, no touch
 
+    // jsdom defines ontouchstart on window — remove it so touchSupport resolves to false
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    delete (globalThis.window as any).ontouchstart;
+
     vi.stubGlobal('navigator', {
       languages: ['en-US', 'es-ES', 'fr-FR'],
       platform: 'Win32',

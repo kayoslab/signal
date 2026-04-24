@@ -3,6 +3,7 @@
 @import './button.css';
 @import './receipt.css';
 @import './osint-card.css';
+@import '../modules/shadow-profile/shadow-profile.css';
 
 *,
 *::before,

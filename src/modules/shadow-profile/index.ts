@@ -16,3 +16,5 @@ export {
   applyInferenceRules,
   type RuleInput,
 } from './inference-rules';
+
+export { renderShadowProfileModule } from './shadow-profile-module';

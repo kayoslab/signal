@@ -533,14 +533,13 @@
         "At least four risk categories shown"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "depends_on": [
         "US-005",
         "US-027"
       ],
       "notes": "Use concise wording.",
-      "status": "in_progress",
-      "claimed_by": "worker-2"
+      "status": "pass"
     },
     {
       "id": "US-029",
@@ -579,7 +578,8 @@
         "US-029"
       ],
       "notes": "Practical not theoretical.",
-      "status": "available"
+      "status": "in_progress",
+      "claimed_by": "worker-3"
     },
     {
       "id": "US-031",

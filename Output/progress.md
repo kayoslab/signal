@@ -58,3 +58,5 @@
 
 ## US-029: Create hardening recommendation rules
 
+## US-028: Render Threat Model module
+

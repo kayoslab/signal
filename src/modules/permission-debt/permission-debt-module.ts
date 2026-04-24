@@ -7,6 +7,15 @@ import './permission-debt.css';
 const REQUIRED_NAMES = ['notifications', 'camera', 'microphone', 'clipboard', 'geolocation'];
 
 export async function renderPermissionDebtModule(): Promise<HTMLElement> {
+  const section = document.createElement('section');
+  section.className = 'permission-debt';
+  section.setAttribute('aria-labelledby', 'section-permission-debt');
+
+  const h2 = document.createElement('h2');
+  h2.id = 'section-permission-debt';
+  h2.textContent = 'Permission Debt';
+  section.appendChild(h2);
+
   const permissions = await checkPermissions();
 
   const filtered = permissions.filter((p) => REQUIRED_NAMES.includes(p.name));
@@ -18,7 +27,7 @@ export async function renderPermissionDebtModule(): Promise<HTMLElement> {
 
   const debtResult = calculatePermissionDebtScore(permissions);
   const rows = formatPermissions(filtered);
-  const receipt = createReceipt('Permission Debt', rows);
+  const receipt = createReceipt(rows);
   receipt.setAttribute('role', 'region');
   receipt.setAttribute('aria-label', 'Permission Debt');
 
@@ -36,9 +45,9 @@ export async function renderPermissionDebtModule(): Promise<HTMLElement> {
   scoreSection.appendChild(scoreValue);
   scoreSection.appendChild(scoreLabel);
 
-  const title = receipt.querySelector('.receipt-title');
-  if (title && title.nextSibling) {
-    receipt.insertBefore(scoreSection, title.nextSibling);
+  const receiptRows = receipt.querySelector('.receipt-rows');
+  if (receiptRows) {
+    receipt.insertBefore(scoreSection, receiptRows);
   } else {
     receipt.appendChild(scoreSection);
   }
@@ -51,5 +60,7 @@ export async function renderPermissionDebtModule(): Promise<HTMLElement> {
     'Review and revoke permissions you no longer need to reduce exposure.';
   receipt.appendChild(explainer);
 
-  return receipt;
+  section.appendChild(receipt);
+
+  return section;
 }

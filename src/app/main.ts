@@ -6,10 +6,14 @@ import { renderZeroClickOsintModule } from '../modules/zero-click-osint';
 import { renderShadowProfileModule } from '../modules/shadow-profile';
 import { renderThreatModelModule } from '../modules/threat-model';
 import { renderHardeningModule } from '../modules/hardening';
+import { createInfoButton, createInfoOverlay } from '../ui/infoOverlay';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 
 if (app) {
+  document.body.appendChild(createInfoButton());
+  document.body.appendChild(createInfoOverlay());
+
   renderIntro(app).then(async () => {
     renderShell(app);
     const dashboard = document.querySelector<HTMLElement>('#dashboard');

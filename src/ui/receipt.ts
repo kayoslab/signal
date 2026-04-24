@@ -27,11 +27,15 @@ export function createReceiptTitle(title: string): HTMLElement {
   return heading;
 }
 
-export function createReceipt(title: string, rows: ReceiptRow[]): HTMLElement {
+export function createReceipt(titleOrRows: string | ReceiptRow[], maybeRows?: ReceiptRow[]): HTMLElement {
   const container = document.createElement('div');
   container.className = 'receipt';
 
-  container.appendChild(createReceiptTitle(title));
+  const rows = typeof titleOrRows === 'string' ? maybeRows! : titleOrRows;
+
+  if (typeof titleOrRows === 'string') {
+    container.appendChild(createReceiptTitle(titleOrRows));
+  }
 
   const rowsContainer = document.createElement('div');
   rowsContainer.className = 'receipt-rows';

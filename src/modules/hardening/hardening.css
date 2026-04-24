@@ -1,7 +1,4 @@
-.hardening-actions h2 {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-xl, 1.5rem);
-  margin-bottom: var(--spacing-lg);
+.hardening-actions {
 }
 
 .hardening-empty {

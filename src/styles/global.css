@@ -4,6 +4,7 @@
 @import './receipt.css';
 @import './osint-card.css';
 @import '../modules/shadow-profile/shadow-profile.css';
+@import '../modules/threat-model/threat-model.css';
 
 *,
 *::before,

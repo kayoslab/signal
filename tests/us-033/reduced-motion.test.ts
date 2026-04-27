@@ -38,7 +38,7 @@ function setupBrowserEnv() {
     languages: Object.freeze(['en-US', 'en']),
     language: 'en-US',
     platform: 'MacIntel',
-    doNotTrack: '1',
+    doNotTrack: 'Enabled',
     hardwareConcurrency: 8,
     maxTouchPoints: 0,
   });

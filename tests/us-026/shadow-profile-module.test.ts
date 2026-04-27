@@ -25,7 +25,7 @@ function setupBrowserMocks(): void {
   vi.stubGlobal('navigator', {
     languages: ['en-US', 'es-ES'],
     platform: 'MacIntel',
-    doNotTrack: '1',
+    doNotTrack: 'Enabled',
     hardwareConcurrency: 16,
     maxTouchPoints: 0,
     userAgent:

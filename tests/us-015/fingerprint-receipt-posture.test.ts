@@ -154,8 +154,8 @@ describe('US-015: fingerprint receipt posture rows (DOM integration)', () => {
       expect(values[0]).toBe('Low');
     });
 
-    it('Entropy Level value is Moderate for score 50', () => {
-      const rows = buildPostureRows(50);
+    it('Entropy Level value is Moderate for score 35', () => {
+      const rows = buildPostureRows(35);
       const receipt = createReceipt('Fingerprint Receipt', rows);
       container.appendChild(receipt);
 
@@ -175,7 +175,7 @@ describe('US-015: fingerprint receipt posture rows (DOM integration)', () => {
     });
 
     it('Entropy Level is one of Low/Moderate/High for any score', () => {
-      for (const score of [0, 33, 34, 66, 67, 100]) {
+      for (const score of [0, 25, 26, 45, 46, 100]) {
         const rows = buildPostureRows(score);
         const receipt = createReceipt('Fingerprint Receipt', rows);
         container.appendChild(receipt);

@@ -232,24 +232,24 @@ describe('US-006: Collect locale and platform browser signals', () => {
   // -----------------------------------------------------------------------
 
   describe('doNotTrack collection', () => {
-    it('collects doNotTrack value "1" from navigator', () => {
+    it('returns "Enabled" when navigator.doNotTrack is "1"', () => {
       Object.defineProperty(globalThis, 'navigator', {
         value: { doNotTrack: '1' },
         writable: true,
         configurable: true,
       });
       const result = collectLocaleSignals();
-      expect(result.doNotTrack).toBe('1');
+      expect(result.doNotTrack).toBe('Enabled');
     });
 
-    it('collects doNotTrack value "0" from navigator', () => {
+    it('returns "Disabled" when navigator.doNotTrack is "0"', () => {
       Object.defineProperty(globalThis, 'navigator', {
         value: { doNotTrack: '0' },
         writable: true,
         configurable: true,
       });
       const result = collectLocaleSignals();
-      expect(result.doNotTrack).toBe('0');
+      expect(result.doNotTrack).toBe('Disabled');
     });
 
     it('falls back to globalThis.doNotTrack when navigator.doNotTrack is absent', () => {
@@ -260,20 +260,30 @@ describe('US-006: Collect locale and platform browser signals', () => {
       });
       (globalThis as unknown as Record<string, unknown>).doNotTrack = '1';
       const result = collectLocaleSignals();
-      expect(result.doNotTrack).toBe('1');
+      expect(result.doNotTrack).toBe('Enabled');
     });
 
-    it('returns "unspecified" when doNotTrack is null', () => {
+    it('returns "Enabled (GPC)" when globalPrivacyControl is true', () => {
+      Object.defineProperty(globalThis, 'navigator', {
+        value: { globalPrivacyControl: true },
+        writable: true,
+        configurable: true,
+      });
+      const result = collectLocaleSignals();
+      expect(result.doNotTrack).toBe('Enabled (GPC)');
+    });
+
+    it('returns "Not Set" when doNotTrack is null', () => {
       Object.defineProperty(globalThis, 'navigator', {
         value: { doNotTrack: null },
         writable: true,
         configurable: true,
       });
       const result = collectLocaleSignals();
-      expect(result.doNotTrack).toBe('unknown');
+      expect(result.doNotTrack).toBe('Not Set');
     });
 
-    it('returns "unspecified" when doNotTrack is not available anywhere', () => {
+    it('returns "Not Set" when doNotTrack is not available anywhere', () => {
       Object.defineProperty(globalThis, 'navigator', {
         value: {},
         writable: true,
@@ -281,10 +291,10 @@ describe('US-006: Collect locale and platform browser signals', () => {
       });
       delete (globalThis as unknown as Record<string, unknown>).doNotTrack;
       const result = collectLocaleSignals();
-      expect(result.doNotTrack).toBe('unknown');
+      expect(result.doNotTrack).toBe('Not Set');
     });
 
-    it('returns "unspecified" when navigator is undefined and globalThis.doNotTrack is undefined', () => {
+    it('returns "Not Set" when navigator is undefined and globalThis.doNotTrack is undefined', () => {
       Object.defineProperty(globalThis, 'navigator', {
         value: undefined,
         writable: true,
@@ -292,7 +302,7 @@ describe('US-006: Collect locale and platform browser signals', () => {
       });
       delete (globalThis as unknown as Record<string, unknown>).doNotTrack;
       const result = collectLocaleSignals();
-      expect(result.doNotTrack).toBe('unknown');
+      expect(result.doNotTrack).toBe('Not Set');
     });
   });
 
@@ -314,7 +324,7 @@ describe('US-006: Collect locale and platform browser signals', () => {
       expect(result.timezone).toBe('unknown');
       expect(result.languages).toEqual(['unknown']);
       expect(result.platform).toBe('unknown');
-      expect(result.doNotTrack).toBe('unknown');
+      expect(result.doNotTrack).toBe('Not Set');
     });
   });
 
@@ -344,7 +354,7 @@ describe('US-006: Collect locale and platform browser signals', () => {
       expect(result.timezone).toBe('Europe/London');
       expect(result.languages).toEqual(['en-GB', 'cy']);
       expect(result.platform).toBe('Win32');
-      expect(result.doNotTrack).toBe('1');
+      expect(result.doNotTrack).toBe('Enabled');
     });
   });
 });

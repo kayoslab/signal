@@ -32,9 +32,9 @@ function formatCpuThreads(hardwareConcurrency: number | string): string {
 }
 
 function formatDoNotTrack(doNotTrack: string): string {
-  if (doNotTrack === '1') return 'Enabled';
-  if (doNotTrack === '0') return 'Disabled';
-  return 'Not set';
+  // Values are now pre-formatted by locale-signals: 'Enabled', 'Enabled (GPC)', 'Disabled', 'Not Set'
+  if (isMissing(doNotTrack)) return 'Unavailable';
+  return doNotTrack;
 }
 
 export function formatSnapshotToReceiptRows(snapshot: SignalSnapshot): ReceiptRow[] {

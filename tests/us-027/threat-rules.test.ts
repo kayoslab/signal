@@ -39,7 +39,7 @@ function makeSnapshot(overrides: {
       timezone: overrides.timezone ?? 'America/New_York',
       languages: overrides.languages ?? Object.freeze(['en-US']),
       platform: overrides.platform ?? 'MacIntel',
-      doNotTrack: overrides.doNotTrack ?? '1',
+      doNotTrack: overrides.doNotTrack ?? 'Enabled',
     },
     device: {
       screenWidth: overrides.screenWidth ?? 1920,

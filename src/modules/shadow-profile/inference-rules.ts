@@ -99,7 +99,7 @@ export function inferPrivacyConscious(
   const evidence: { signal: string; value: string; source: string }[] = [];
 
   const { doNotTrack } = snapshot.locale;
-  if (doNotTrack === '1') {
+  if (doNotTrack === 'Enabled' || doNotTrack === 'Enabled (GPC)') {
     privacySignalCount++;
     evidence.push({ signal: 'doNotTrack', value: doNotTrack, source: 'navigator.doNotTrack' });
   }

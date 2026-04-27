@@ -66,7 +66,7 @@ describe('US-015: privacy posture and uniqueness estimate', () => {
 
   // ── Entropy label bands ───────────────────────────────────────────
 
-  describe('entropy label: Low band (0–33)', () => {
+  describe('entropy label: Low band (0–25)', () => {
     it('score 0 → Low', () => {
       expect(computePrivacyPosture(makeEntropyResult(0)).entropyLabel).toBe('Low');
     });
@@ -75,28 +75,28 @@ describe('US-015: privacy posture and uniqueness estimate', () => {
       expect(computePrivacyPosture(makeEntropyResult(1)).entropyLabel).toBe('Low');
     });
 
-    it('score 33 → Low (upper boundary)', () => {
-      expect(computePrivacyPosture(makeEntropyResult(33)).entropyLabel).toBe('Low');
+    it('score 25 → Low (upper boundary)', () => {
+      expect(computePrivacyPosture(makeEntropyResult(25)).entropyLabel).toBe('Low');
     });
   });
 
-  describe('entropy label: Moderate band (34–66)', () => {
-    it('score 34 → Moderate (lower boundary)', () => {
-      expect(computePrivacyPosture(makeEntropyResult(34)).entropyLabel).toBe('Moderate');
+  describe('entropy label: Moderate band (26–45)', () => {
+    it('score 26 → Moderate (lower boundary)', () => {
+      expect(computePrivacyPosture(makeEntropyResult(26)).entropyLabel).toBe('Moderate');
     });
 
-    it('score 50 → Moderate (midpoint)', () => {
-      expect(computePrivacyPosture(makeEntropyResult(50)).entropyLabel).toBe('Moderate');
+    it('score 35 → Moderate (midpoint)', () => {
+      expect(computePrivacyPosture(makeEntropyResult(35)).entropyLabel).toBe('Moderate');
     });
 
-    it('score 66 → Moderate (upper boundary)', () => {
-      expect(computePrivacyPosture(makeEntropyResult(66)).entropyLabel).toBe('Moderate');
+    it('score 45 → Moderate (upper boundary)', () => {
+      expect(computePrivacyPosture(makeEntropyResult(45)).entropyLabel).toBe('Moderate');
     });
   });
 
-  describe('entropy label: High band (67–100)', () => {
-    it('score 67 → High (lower boundary)', () => {
-      expect(computePrivacyPosture(makeEntropyResult(67)).entropyLabel).toBe('High');
+  describe('entropy label: High band (46–100)', () => {
+    it('score 46 → High (lower boundary)', () => {
+      expect(computePrivacyPosture(makeEntropyResult(46)).entropyLabel).toBe('High');
     });
 
     it('score 85 → High', () => {
@@ -112,13 +112,13 @@ describe('US-015: privacy posture and uniqueness estimate', () => {
 
   describe('uniqueness estimate text', () => {
     it('Low band estimate differs from Moderate band estimate', () => {
-      const low = computePrivacyPosture(makeEntropyResult(20)).uniquenessEstimate;
-      const moderate = computePrivacyPosture(makeEntropyResult(50)).uniquenessEstimate;
+      const low = computePrivacyPosture(makeEntropyResult(10)).uniquenessEstimate;
+      const moderate = computePrivacyPosture(makeEntropyResult(35)).uniquenessEstimate;
       expect(low).not.toBe(moderate);
     });
 
     it('Moderate band estimate differs from High band estimate', () => {
-      const moderate = computePrivacyPosture(makeEntropyResult(50)).uniquenessEstimate;
+      const moderate = computePrivacyPosture(makeEntropyResult(35)).uniquenessEstimate;
       const high = computePrivacyPosture(makeEntropyResult(80)).uniquenessEstimate;
       expect(moderate).not.toBe(high);
     });
@@ -134,19 +134,19 @@ describe('US-015: privacy posture and uniqueness estimate', () => {
 
   describe('privacy posture summary', () => {
     it('Low band posture differs from Moderate band posture', () => {
-      const low = computePrivacyPosture(makeEntropyResult(20)).privacyPosture;
-      const moderate = computePrivacyPosture(makeEntropyResult(50)).privacyPosture;
+      const low = computePrivacyPosture(makeEntropyResult(10)).privacyPosture;
+      const moderate = computePrivacyPosture(makeEntropyResult(35)).privacyPosture;
       expect(low).not.toBe(moderate);
     });
 
     it('Moderate band posture differs from High band posture', () => {
-      const moderate = computePrivacyPosture(makeEntropyResult(50)).privacyPosture;
+      const moderate = computePrivacyPosture(makeEntropyResult(35)).privacyPosture;
       const high = computePrivacyPosture(makeEntropyResult(80)).privacyPosture;
       expect(moderate).not.toBe(high);
     });
 
     it('privacy posture is non-empty for all bands', () => {
-      for (const score of [0, 33, 34, 66, 67, 100]) {
+      for (const score of [0, 25, 26, 45, 46, 100]) {
         const result = computePrivacyPosture(makeEntropyResult(score));
         expect(result.privacyPosture.length).toBeGreaterThan(0);
       }

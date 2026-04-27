@@ -29,7 +29,7 @@ function makeSnapshot(overrides: {
       timezone: 'America/New_York',
       languages: Object.freeze(['en-US', 'fr-FR']),
       platform: 'MacIntel',
-      doNotTrack: '1',
+      doNotTrack: 'Enabled',
       ...overrides.locale,
     },
     device: {
@@ -174,10 +174,12 @@ describe('US-014: entropy heuristic scoring', () => {
   });
 
   describe('boundary: all signals available', () => {
-    it('returns score 100 when all signals have real values', () => {
+    it('returns a positive score when all signals have real values', () => {
       const snapshot = makeSnapshot();
       const result = calculateEntropyScore(snapshot);
-      expect(result.score).toBe(100);
+      // Score is less than 100 because common signal values are discounted
+      expect(result.score).toBeGreaterThan(0);
+      expect(result.score).toBeLessThanOrEqual(100);
     });
   });
 
@@ -512,7 +514,7 @@ describe('US-014: entropy heuristic scoring', () => {
       }
     });
 
-    it('each breakdown entry contribution is either 0 or the full weight', () => {
+    it('each breakdown entry contribution is between 0 and its full weight', () => {
       const result = calculateEntropyScore(
         makeSnapshot({
           rendering: { renderer: 'unavailable' },
@@ -520,7 +522,8 @@ describe('US-014: entropy heuristic scoring', () => {
       );
 
       for (const entry of result.breakdown) {
-        expect([0, entry.weight]).toContain(entry.contribution);
+        expect(entry.contribution).toBeGreaterThanOrEqual(0);
+        expect(entry.contribution).toBeLessThanOrEqual(entry.weight);
       }
     });
   });
@@ -582,9 +585,7 @@ describe('US-014: entropy heuristic scoring', () => {
       );
 
       expect(screenEntry?.value).toBe('2560x1440');
-      expect(screenEntry?.contribution).toBe(
-        ENTROPY_WEIGHTS['screenResolution'],
-      );
+      expect(screenEntry?.contribution).toBeGreaterThan(0);
     });
 
     it('webglSupported false means no WebGL fingerprint, contributes 0', () => {
@@ -611,7 +612,7 @@ describe('US-014: entropy heuristic scoring', () => {
       );
 
       expect(entry?.value).toBe('true');
-      expect(entry?.contribution).toBe(ENTROPY_WEIGHTS['webglSupported']);
+      expect(entry?.contribution).toBeGreaterThan(0);
     });
 
     it('touchSupport "unavailable" string contributes 0', () => {
@@ -636,9 +637,7 @@ describe('US-014: entropy heuristic scoring', () => {
       );
 
       expect(entry?.value).toBe('16');
-      expect(entry?.contribution).toBe(
-        ENTROPY_WEIGHTS['hardwareConcurrency'],
-      );
+      expect(entry?.contribution).toBeGreaterThan(0);
     });
   });
 
@@ -710,7 +709,7 @@ describe('US-014: entropy heuristic scoring', () => {
             platform:
               Math.random() > 0.5 ? 'Win32' : sentinels[trial % 2],
             doNotTrack:
-              Math.random() > 0.5 ? '1' : sentinels[trial % 2],
+              Math.random() > 0.5 ? 'Enabled' : sentinels[trial % 2],
           },
           rendering: {
             webglSupported: Math.random() > 0.5,

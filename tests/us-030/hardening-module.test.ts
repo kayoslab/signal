@@ -33,7 +33,7 @@ function makeSnapshot(overrides: {
       timezone: overrides.timezone ?? 'America/New_York',
       languages: overrides.languages ?? Object.freeze(['en-US']),
       platform: overrides.platform ?? 'MacIntel',
-      doNotTrack: overrides.doNotTrack ?? '1',
+      doNotTrack: overrides.doNotTrack ?? 'Enabled',
     },
     device: {
       screenWidth: overrides.screenWidth ?? 1920,
@@ -137,7 +137,7 @@ function makeInput(overrides: Partial<HardeningInput> = {}): HardeningInput {
 
 function makeMaxInput(): HardeningInput {
   return makeInput({
-    snapshot: makeSnapshot({ doNotTrack: 'unspecified' }),
+    snapshot: makeSnapshot({ doNotTrack: 'Not Set' }),
     permissions: makePermissionsWithOverrides('denied', {
       camera: 'granted',
       microphone: 'granted',
@@ -163,7 +163,7 @@ function makeMaxInput(): HardeningInput {
 
 function makeCleanInput(): HardeningInput {
   return makeInput({
-    snapshot: makeSnapshot({ doNotTrack: '1' }),
+    snapshot: makeSnapshot({ doNotTrack: 'Enabled' }),
     permissions: makePermissions('denied'),
     entropy: makeEntropy(20),
     permissionDebt: makeDebt(0),
@@ -234,7 +234,7 @@ describe('US-030: hardening module renderer', () => {
     it('renders cards when recommendations exist (max-exposed input)', async () => {
       // We mock the data pipeline to inject controlled input
       vi.doMock('../../src/signals/snapshot', () => ({
-        collectSnapshot: () => makeSnapshot({ doNotTrack: 'unspecified' }),
+        collectSnapshot: () => makeSnapshot({ doNotTrack: 'Not Set' }),
       }));
       vi.doMock('../../src/permissions/permissions-adapter', () => ({
         checkPermissions: async () =>
@@ -356,7 +356,7 @@ describe('US-030: hardening module renderer', () => {
 
     it('partial exposure produces subset of recommendations', () => {
       const partialInput = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: 'unspecified' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Not Set' }),
         permissions: makePermissions('denied'),
         entropy: makeEntropy(80),
         permissionDebt: makeDebt(0),
@@ -372,7 +372,7 @@ describe('US-030: hardening module renderer', () => {
 
     it('only permission-related rules fire when only permissions are exposed', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: '1' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Enabled' }),
         permissions: makePermissionsWithOverrides('denied', {
           camera: 'granted',
           notifications: 'granted',
@@ -456,7 +456,7 @@ describe('US-030: hardening module renderer', () => {
   describe('empty state', () => {
     it('renders empty-state message when no rules trigger', async () => {
       vi.doMock('../../src/signals/snapshot', () => ({
-        collectSnapshot: () => makeSnapshot({ doNotTrack: '1' }),
+        collectSnapshot: () => makeSnapshot({ doNotTrack: 'Enabled' }),
       }));
       vi.doMock('../../src/permissions/permissions-adapter', () => ({
         checkPermissions: async () => makePermissions('denied'),

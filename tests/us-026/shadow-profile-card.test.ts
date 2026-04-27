@@ -165,11 +165,11 @@ describe('US-026: evidence entries', () => {
   it('renders all three fields (signal, value, source) for each evidence entry', async () => {
     const { createShadowProfileCard } = await import('../../src/ui/shadow-profile-card');
     const evidence: EvidenceEntry[] = [
-      { signal: 'doNotTrack', value: '1', source: 'navigator.doNotTrack' },
+      { signal: 'doNotTrack', value: 'Enabled', source: 'navigator.doNotTrack' },
     ];
     const card = createShadowProfileCard(makeInference({ evidence }));
     expect(card.textContent).toContain('doNotTrack');
-    expect(card.textContent).toContain('1');
+    expect(card.textContent).toContain('Enabled');
     expect(card.textContent).toContain('navigator.doNotTrack');
   });
 
@@ -259,7 +259,7 @@ describe('US-026: no certainty language in card text', () => {
     const inference = makeInference({
       statement: 'Signal pattern is consistent with a privacy-conscious user who actively manages browser settings',
       evidence: [
-        { signal: 'doNotTrack', value: '1', source: 'navigator.doNotTrack' },
+        { signal: 'doNotTrack', value: 'Enabled', source: 'navigator.doNotTrack' },
         { signal: 'permission:camera', value: 'denied', source: 'Permissions API' },
       ],
       confidence: 'low',

@@ -32,7 +32,7 @@ function makeSnapshot(overrides: {
       timezone: 'America/New_York',
       languages: ['en-US'] as unknown as readonly string[],
       platform: 'MacIntel',
-      doNotTrack: 'unspecified',
+      doNotTrack: 'Not Set',
       ...overrides.locale,
     },
     device: {
@@ -219,7 +219,7 @@ describe('inferGeographicRegion', () => {
 
 describe('inferPrivacyConscious', () => {
   it('returns an InferenceStatement when doNotTrack is enabled and permissions are denied', () => {
-    const snapshot = makeSnapshot({ locale: { doNotTrack: '1' } });
+    const snapshot = makeSnapshot({ locale: { doNotTrack: 'Enabled' } });
     const permissions = makePermissions({ camera: 'denied', microphone: 'denied' });
     const result = inferPrivacyConscious(snapshot, permissions);
     expect(result).not.toBeNull();
@@ -227,14 +227,14 @@ describe('inferPrivacyConscious', () => {
   });
 
   it('returns null when no privacy signals are active', () => {
-    const snapshot = makeSnapshot({ locale: { doNotTrack: 'unspecified' } });
+    const snapshot = makeSnapshot({ locale: { doNotTrack: 'Not Set' } });
     const permissions = makePermissions();
     const result = inferPrivacyConscious(snapshot, permissions);
     expect(result).toBeNull();
   });
 
   it('returns an InferenceStatement when only denied permissions meet the threshold', () => {
-    const snapshot = makeSnapshot({ locale: { doNotTrack: 'unspecified' } });
+    const snapshot = makeSnapshot({ locale: { doNotTrack: 'Not Set' } });
     const permissions = makePermissions({
       camera: 'denied',
       microphone: 'denied',
@@ -245,33 +245,33 @@ describe('inferPrivacyConscious', () => {
   });
 
   it('returns an InferenceStatement when doNotTrack plus one denied permission meets threshold', () => {
-    const snapshot = makeSnapshot({ locale: { doNotTrack: '1' } });
+    const snapshot = makeSnapshot({ locale: { doNotTrack: 'Enabled' } });
     const permissions = makePermissions({ camera: 'denied' });
     const result = inferPrivacyConscious(snapshot, permissions);
     expect(result).not.toBeNull();
   });
 
   it('handles missing permissions gracefully (undefined)', () => {
-    const snapshot = makeSnapshot({ locale: { doNotTrack: '1' } });
+    const snapshot = makeSnapshot({ locale: { doNotTrack: 'Enabled' } });
     const result = inferPrivacyConscious(snapshot, undefined);
     expect(result).toBeNull();
   });
 
   it('handles empty permissions array', () => {
-    const snapshot = makeSnapshot({ locale: { doNotTrack: '1' } });
+    const snapshot = makeSnapshot({ locale: { doNotTrack: 'Enabled' } });
     const result = inferPrivacyConscious(snapshot, []);
     expect(result).toBeNull();
   });
 
   it('contains no certainty language in the statement', () => {
-    const snapshot = makeSnapshot({ locale: { doNotTrack: '1' } });
+    const snapshot = makeSnapshot({ locale: { doNotTrack: 'Enabled' } });
     const permissions = makePermissions({ camera: 'denied', microphone: 'denied' });
     const result = inferPrivacyConscious(snapshot, permissions);
     if (result) assertNoCertaintyLanguage(result);
   });
 
   it('references doNotTrack or denied permissions in evidence', () => {
-    const snapshot = makeSnapshot({ locale: { doNotTrack: '1' } });
+    const snapshot = makeSnapshot({ locale: { doNotTrack: 'Enabled' } });
     const permissions = makePermissions({ camera: 'denied' });
     const result = inferPrivacyConscious(snapshot, permissions);
     if (result) {
@@ -444,7 +444,7 @@ describe('applyInferenceRules', () => {
       locale: {
         timezone: 'America/New_York',
         languages: ['en-US', 'es-ES'] as unknown as readonly string[],
-        doNotTrack: '1',
+        doNotTrack: 'Enabled',
       },
       device: {
         hardwareConcurrency: 16,
@@ -469,7 +469,7 @@ describe('applyInferenceRules', () => {
       locale: {
         timezone: 'Europe/Berlin',
         languages: ['de-DE', 'en-US'] as unknown as readonly string[],
-        doNotTrack: '1',
+        doNotTrack: 'Enabled',
       },
       device: {
         hardwareConcurrency: 12,
@@ -492,7 +492,7 @@ describe('applyInferenceRules', () => {
       locale: {
         timezone: 'Asia/Tokyo',
         languages: ['ja-JP', 'en-US'] as unknown as readonly string[],
-        doNotTrack: '1',
+        doNotTrack: 'Enabled',
       },
       device: {
         hardwareConcurrency: 16,
@@ -530,7 +530,7 @@ describe('applyInferenceRules', () => {
       locale: {
         timezone: 'unknown',
         languages: ['en-US'] as unknown as readonly string[],
-        doNotTrack: 'unspecified',
+        doNotTrack: 'Not Set',
       },
       device: {
         hardwareConcurrency: 2,
@@ -588,7 +588,7 @@ describe('applyInferenceRules', () => {
       locale: {
         timezone: 'America/New_York',
         languages: ['en-US', 'es-ES'] as unknown as readonly string[],
-        doNotTrack: '1',
+        doNotTrack: 'Enabled',
       },
       device: {
         hardwareConcurrency: 16,

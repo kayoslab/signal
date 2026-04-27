@@ -86,8 +86,9 @@ export async function renderFingerprintReceipt(): Promise<HTMLElement> {
   actions.className = 'receipt-actions';
 
   const rerunBtn = createRerunButton(async () => {
-    const [freshSnapshot] = await Promise.all([
+    const [freshSnapshot, freshPermissions] = await Promise.all([
       Promise.resolve(collectSnapshot()),
+      checkPermissions(),
       new Promise<void>((r) => setTimeout(r, MIN_LOADING_MS)),
     ]);
     const freshRows = [...formatSnapshotToRows(freshSnapshot), ...buildPostureRows(freshSnapshot)];
@@ -96,6 +97,21 @@ export async function renderFingerprintReceipt(): Promise<HTMLElement> {
     rowsContainer.innerHTML = '';
     for (const row of freshRows) {
       rowsContainer.appendChild(createReceiptRow(row.label, row.value));
+    }
+
+    // Refresh permission debt section
+    const freshFiltered = freshPermissions.filter((p) => REQUIRED_PERMISSIONS.includes(p.name));
+    const freshMissing = REQUIRED_PERMISSIONS.filter((n) => !freshFiltered.some((p) => p.name === n));
+    for (const name of freshMissing) {
+      freshFiltered.push({ name, state: 'unsupported' });
+    }
+    const freshDebt = calculatePermissionDebtScore(freshPermissions);
+    const freshPermRows = formatPermissions(freshFiltered);
+
+    scoreValue.textContent = String(freshDebt.score);
+    permRowsContainer.innerHTML = '';
+    for (const row of freshPermRows) {
+      permRowsContainer.appendChild(createReceiptRow(row.label, row.value));
     }
   });
 

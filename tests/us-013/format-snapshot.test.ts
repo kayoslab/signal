@@ -18,7 +18,7 @@ function makeFullSnapshot(): SignalSnapshot {
       timezone: 'America/New_York',
       languages: Object.freeze(['en-US', 'fr-FR']),
       platform: 'MacIntel',
-      doNotTrack: '1',
+      doNotTrack: 'Enabled',
     },
     device: {
       screenWidth: 1920,

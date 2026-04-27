@@ -44,7 +44,8 @@ function evaluateRevokeHighRiskPermissions(
 function evaluateEnableDoNotTrack(
   input: HardeningInput,
 ): HardeningRecommendation | null {
-  if (input.snapshot.locale.doNotTrack === '1') return null;
+  const dnt = input.snapshot.locale.doNotTrack;
+  if (dnt === 'Enabled' || dnt === 'Enabled (GPC)') return null;
 
   return createRecommendation({
     id: 'enable-do-not-track',

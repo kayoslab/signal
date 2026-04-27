@@ -314,7 +314,7 @@ describe('US-009: collectSnapshot', () => {
       expect(snapshot.locale.timezone).toBe('Europe/Berlin');
       expect(snapshot.locale.languages).toEqual(['de-DE', 'en']);
       expect(snapshot.locale.platform).toBe('Linux x86_64');
-      expect(snapshot.locale.doNotTrack).toBe('1');
+      expect(snapshot.locale.doNotTrack).toBe('Enabled');
     });
 
     it('device signals are populated from browser APIs', () => {

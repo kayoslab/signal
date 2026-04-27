@@ -48,12 +48,28 @@ export function collectLocaleSignals(): LocaleSignals {
 
   let doNotTrack: string;
   try {
+    const nav = globalThis as unknown as {
+      navigator?: {
+        doNotTrack?: string | null;
+        globalPrivacyControl?: boolean;
+      };
+      doNotTrack?: string | null;
+    };
+    const gpc = nav.navigator?.globalPrivacyControl;
     const dnt =
-      (globalThis as unknown as { navigator?: { doNotTrack?: string | null } })
-        .navigator?.doNotTrack ??
-      (globalThis as unknown as { doNotTrack?: string | null }).doNotTrack ??
+      nav.navigator?.doNotTrack ??
+      nav.doNotTrack ??
       null;
-    doNotTrack = typeof dnt === 'string' ? dnt : 'unknown';
+
+    if (gpc === true) {
+      doNotTrack = 'Enabled (GPC)';
+    } else if (dnt === '1') {
+      doNotTrack = 'Enabled';
+    } else if (dnt === '0') {
+      doNotTrack = 'Disabled';
+    } else {
+      doNotTrack = 'Not Set';
+    }
   } catch {
     doNotTrack = 'unknown';
   }

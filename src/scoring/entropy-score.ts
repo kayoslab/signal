@@ -54,6 +54,42 @@ function isMissing(value: string): boolean {
   return MISSING_SENTINELS.has(value);
 }
 
+/**
+ * Common-value sets for signals where most browsers share a small set of values.
+ * Values found here are considered low-entropy (common); values not found are
+ * considered distinguishing and contribute more to the score.
+ */
+const COMMON_VALUES: Record<string, Set<string>> = {
+  timezone: new Set([
+    'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
+    'Europe/London', 'Europe/Paris', 'Europe/Berlin', 'Asia/Tokyo', 'Asia/Shanghai',
+    'Asia/Kolkata', 'Australia/Sydney', 'UTC',
+  ]),
+  languages: new Set([
+    'en-US', 'en-GB', 'en', 'de', 'fr', 'es', 'zh-CN', 'ja', 'pt-BR', 'ko',
+  ]),
+  platform: new Set(['Win32', 'MacIntel', 'Linux x86_64']),
+  screenResolution: new Set([
+    '1920x1080', '1366x768', '1536x864', '1440x900', '2560x1440',
+    '1280x720', '1600x900', '3840x2160', '2560x1600', '1280x800',
+  ]),
+  vendor: new Set(['Google Inc.', 'Apple Computer, Inc.', 'Google Inc. (Apple)']),
+  hardwareConcurrency: new Set(['4', '8', '2', '6', '12', '16']),
+  devicePixelRatio: new Set(['1', '2', '3']),
+  colorDepth: new Set(['24', '30']),
+  maxTouchPoints: new Set(['0', '1', '5', '10']),
+  deviceMemory: new Set(['8', '4', '2', '16']),
+  doNotTrack: new Set(['Not Set', 'Enabled', 'Disabled']),
+  networkType: new Set(['4g']),
+  webglVersion: new Set(['WebGL 1.0', 'WebGL 2.0']),
+  touchSupport: new Set(['true', 'false']),
+  storageSupport: new Set(['111']),
+  webglSupported: new Set(['true']),
+};
+
+/** Fraction of weight credited to a signal whose value is common (0–1). */
+const COMMON_DISCOUNT = 0.15;
+
 function extractSignalValue(
   signal: string,
   snapshot: SignalSnapshot,
@@ -140,14 +176,34 @@ function extractSignalValue(
 }
 
 /**
+ * Determine the distinctiveness factor for a signal value.
+ *
+ * - Missing signals contribute 0.
+ * - Signals with a value in the COMMON_VALUES set for that signal are discounted
+ *   to COMMON_DISCOUNT of their weight (they don't distinguish the user much).
+ * - Signals with no common-value set (e.g. canvasHash, fonts, renderer) or whose
+ *   value is not in the common set get their full weight (high distinctiveness).
+ */
+function distinctivenessFactor(signal: string, value: string): number {
+  if (isMissing(value)) return 0;
+  const commonSet = COMMON_VALUES[signal];
+  if (!commonSet) return 1; // No common-value list → treat as distinguishing (e.g. canvasHash)
+
+  // For compound values like languages "en-US,en", check if the primary token is common
+  const primary = value.split(',')[0];
+  if (commonSet.has(value) || commonSet.has(primary)) return COMMON_DISCOUNT;
+  return 1;
+}
+
+/**
  * Calculates a deterministic entropy score on a 0–100 scale.
  *
- * Scoring formula:
- *   score = round(sum_of_contributions / sum_of_all_weights × 100)
+ * Unlike a simple presence/absence check, this scorer accounts for how
+ * *distinguishing* each signal's value is. A common screen resolution
+ * like 1920×1080 contributes far less than a rare GPU renderer string.
  *
- * Each signal contributes its full weight when present (not a missing sentinel),
- * and 0 when absent ('unknown' or 'unavailable').
- * The result is clamped to [0, 100] and returned as an integer.
+ * Scoring formula:
+ *   score = round(sum_of_weighted_contributions / sum_of_all_weights × 100)
  *
  * This is a heuristic estimate, not a scientific measurement.
  */
@@ -161,9 +217,10 @@ export function calculateEntropyScore(
   for (const [signal, weight] of Object.entries(ENTROPY_WEIGHTS)) {
     totalSum += weight;
     const value = extractSignalValue(signal, snapshot);
-    const contribution = isMissing(value) ? 0 : weight;
+    const factor = distinctivenessFactor(signal, value);
+    const contribution = weight * factor;
     contributionSum += contribution;
-    breakdown.push({ signal, value, weight, contribution });
+    breakdown.push({ signal, value, weight, contribution: Math.round(contribution * 100) / 100 });
   }
 
   const raw = totalSum > 0 ? (contributionSum / totalSum) * 100 : 0;

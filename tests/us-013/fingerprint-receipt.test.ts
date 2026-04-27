@@ -25,7 +25,7 @@ function setupBrowserEnv(): void {
     languages: ['en-US'],
     language: 'en-US',
     platform: 'MacIntel',
-    doNotTrack: '1',
+    doNotTrack: 'Enabled',
     hardwareConcurrency: 8,
     maxTouchPoints: 0,
   });

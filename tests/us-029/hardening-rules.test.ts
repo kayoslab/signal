@@ -36,7 +36,7 @@ function makeSnapshot(overrides: {
       timezone: overrides.timezone ?? 'America/New_York',
       languages: overrides.languages ?? Object.freeze(['en-US']),
       platform: overrides.platform ?? 'MacIntel',
-      doNotTrack: overrides.doNotTrack ?? '1',
+      doNotTrack: overrides.doNotTrack ?? 'Enabled',
     },
     device: {
       screenWidth: overrides.screenWidth ?? 1920,
@@ -207,9 +207,9 @@ describe('US-029: hardening recommendation rules', () => {
   // Rule 2: Enable Do Not Track
   // =========================================================================
   describe('enable Do Not Track rule', () => {
-    it('triggers when doNotTrack is not "1"', () => {
+    it('triggers when doNotTrack is not "Enabled"', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: 'unspecified' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Not Set' }),
       });
       const recommendations = evaluateHardeningRules(input);
       const match = recommendations.find((r) => r.relatedFindings.includes('doNotTrack'));
@@ -225,9 +225,9 @@ describe('US-029: hardening recommendation rules', () => {
       expect(match).toBeDefined();
     });
 
-    it('does not trigger when doNotTrack is "1"', () => {
+    it('does not trigger when doNotTrack is "Enabled"', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: '1' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Enabled' }),
       });
       const recommendations = evaluateHardeningRules(input);
       const match = recommendations.find((r) => r.relatedFindings.includes('doNotTrack'));
@@ -236,7 +236,7 @@ describe('US-029: hardening recommendation rules', () => {
 
     it('has Easy difficulty', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: 'unspecified' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Not Set' }),
       });
       const recommendations = evaluateHardeningRules(input);
       const match = recommendations.find((r) => r.relatedFindings.includes('doNotTrack'));
@@ -561,7 +561,7 @@ describe('US-029: hardening recommendation rules', () => {
   describe('acceptance criteria: at least 5 possible actions', () => {
     it('returns at least 5 recommendations for a maximally-exposed input', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: 'unspecified' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Not Set' }),
         permissions: makePermissionsWithOverrides('denied', {
           camera: 'granted',
           microphone: 'granted',
@@ -584,7 +584,7 @@ describe('US-029: hardening recommendation rules', () => {
 
     it('each recommendation has a unique id', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: 'unspecified' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Not Set' }),
         permissions: makePermissionsWithOverrides('denied', {
           camera: 'granted',
           microphone: 'granted',
@@ -614,7 +614,7 @@ describe('US-029: hardening recommendation rules', () => {
   describe('benign input produces no recommendations', () => {
     it('returns empty array when all signals are benign', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: '1' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Enabled' }),
         permissions: makePermissions('denied'),
         entropy: makeEntropy(20),
         permissionDebt: makeDebt(0),
@@ -632,7 +632,7 @@ describe('US-029: hardening recommendation rules', () => {
   describe('recommendation shape', () => {
     it('every recommendation has all required fields', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: 'unspecified' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Not Set' }),
         permissions: makePermissionsWithOverrides('denied', {
           camera: 'granted',
           notifications: 'granted',
@@ -702,7 +702,7 @@ describe('US-029: hardening recommendation rules', () => {
 
     it('no recommendation uses certainty language', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: 'unspecified' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Not Set' }),
         permissions: makePermissionsWithOverrides('denied', {
           camera: 'granted',
           microphone: 'granted',
@@ -730,7 +730,7 @@ describe('US-029: hardening recommendation rules', () => {
 
     it('no recommendation uses fear language', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: 'unspecified' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Not Set' }),
         permissions: makePermissionsWithOverrides('denied', {
           camera: 'granted',
           microphone: 'granted',
@@ -763,7 +763,7 @@ describe('US-029: hardening recommendation rules', () => {
   describe('determinism', () => {
     it('returns identical recommendations for identical input across calls', () => {
       const input = makeInput({
-        snapshot: makeSnapshot({ doNotTrack: 'unspecified' }),
+        snapshot: makeSnapshot({ doNotTrack: 'Not Set' }),
         permissions: makePermissionsWithOverrides('denied', {
           camera: 'granted',
           notifications: 'granted',

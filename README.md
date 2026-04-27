@@ -16,7 +16,7 @@ Signal Intelligence analyzes locally available browser signals and presents them
 4. **What realistic risks those signals create** — a personal threat model with severity ratings
 5. **What practical actions they can take** — hardening recommendations ranked by difficulty
 
-Every analysis runs entirely in the browser. Nothing is stored. Nothing is sent anywhere.
+Every analysis runs entirely in the browser. Nothing is stored. No data is sent to any server. Some browser APIs used during analysis (such as WebRTC candidate gathering and media device enumeration) operate locally but may be perceived as sensitive — see the Privacy section below for details.
 
 ## Privacy
 
@@ -27,6 +27,8 @@ Every analysis runs entirely in the browser. Nothing is stored. Nothing is sent 
 - No mandatory localStorage
 - No external data exfiltration
 - All analysis runs locally in the browser
+
+**Note on browser APIs:** The OSINT module uses WebRTC ICE candidate gathering (with an empty `iceServers` configuration — no STUN/TURN servers) to detect local network interfaces, and `navigator.mediaDevices.enumerateDevices()` to count media devices. Both operate entirely client-side and do not send data over the network, but users should be aware these APIs are exercised during analysis.
 
 ## Dashboard Modules
 

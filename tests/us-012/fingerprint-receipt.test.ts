@@ -21,7 +21,7 @@ function makeSnapshot(overrides: {
       timezone: overrides.timezone ?? 'America/New_York',
       languages: overrides.languages ?? Object.freeze(['en-US', 'fr-FR']),
       platform: overrides.platform ?? 'MacIntel',
-      doNotTrack: overrides.doNotTrack ?? '1',
+      doNotTrack: overrides.doNotTrack ?? 'Enabled',
     },
     device: {
       screenWidth: 1920,
@@ -193,32 +193,32 @@ describe('US-012: Populate receipt with core fingerprint fields', () => {
 
     // --- Acceptance Criterion: Do Not Track shown ---
     describe('Do Not Track field', () => {
-      it('shows "Enabled" when doNotTrack is "1"', () => {
-        const rows = formatSnapshotToReceiptRows(makeSnapshot({ doNotTrack: '1' }));
+      it('shows "Enabled" when doNotTrack is "Enabled"', () => {
+        const rows = formatSnapshotToReceiptRows(makeSnapshot({ doNotTrack: 'Enabled' }));
         const row = findRow(rows, 'Do Not Track');
         expect(row).toBeDefined();
         expect(row!.value).toBe('Enabled');
       });
 
-      it('shows "Disabled" when doNotTrack is "0"', () => {
-        const rows = formatSnapshotToReceiptRows(makeSnapshot({ doNotTrack: '0' }));
+      it('shows "Disabled" when doNotTrack is "Disabled"', () => {
+        const rows = formatSnapshotToReceiptRows(makeSnapshot({ doNotTrack: 'Disabled' }));
         const row = findRow(rows, 'Do Not Track');
         expect(row).toBeDefined();
         expect(row!.value).toBe('Disabled');
       });
 
-      it('shows "Not set" when doNotTrack is "unspecified"', () => {
-        const rows = formatSnapshotToReceiptRows(makeSnapshot({ doNotTrack: 'unspecified' }));
+      it('shows "Not Set" when doNotTrack is "Not Set"', () => {
+        const rows = formatSnapshotToReceiptRows(makeSnapshot({ doNotTrack: 'Not Set' }));
         const row = findRow(rows, 'Do Not Track');
         expect(row).toBeDefined();
-        expect(row!.value).toBe('Not set');
+        expect(row!.value).toBe('Not Set');
       });
 
-      it('shows "Not set" when doNotTrack is MISSING.unknown', () => {
+      it('shows "Unavailable" when doNotTrack is MISSING.unknown', () => {
         const rows = formatSnapshotToReceiptRows(makeSnapshot({ doNotTrack: MISSING.unknown }));
         const row = findRow(rows, 'Do Not Track');
         expect(row).toBeDefined();
-        expect(row!.value).toBe('Not set');
+        expect(row!.value).toBe('Unavailable');
       });
     });
 
